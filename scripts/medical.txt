@@ -1,0 +1,119 @@
+module "medical"
+
+Step welcome
+    Speak "您好，这里是智慧医院综合服务中心，请问需要什么帮助？"
+    Listen
+    Case "挂号" -> goto regDept
+    Case "预约" -> goto regDept
+    Case "体检" -> goto checkupType
+    Case "科普" -> goto scienceIntro
+    Case "退出" -> goto goodbye
+    Default -> goto fallback
+
+Step regDept
+    Speak "好的，请问您想挂哪个科室？内科、外科、儿科还是妇科？"
+    Listen
+    Case "内科" -> goto regDate
+    Case "外科" -> goto regDate
+    Case "儿科" -> goto regDate
+    Case "妇科" -> goto regDate
+    ai -> goto regAI
+    Default -> goto regDeptFallback
+
+Step regDeptFallback
+    Speak "抱歉，我没听清。可以告诉我要挂的科室吗？比如内科或外科。"
+    goto regDept
+
+# AI辅助科室判断
+Step regAI
+    AIReply
+    goto welcome
+
+Step regDate
+    Speak "请问您想预约哪一天？您可以说：今天、明天、后天。"
+    Listen
+    Case "今天" -> goto regConfirmToday
+    Case "明天" -> goto regConfirmTomorrow
+    Case "后天" -> goto regConfirmAfter
+    Default -> goto regDateFallback
+
+Step regDateFallback
+    Speak "日期没有听清，请说今天、明天或后天。"
+    goto regDate
+
+
+# 确认
+Step regConfirmToday
+    Speak "好的，已为您预约了今天的就诊，请在智慧医院App中查看详情。"
+    goto welcome
+
+Step regConfirmTomorrow
+    Speak "预约成功！已为您挂号明天的门诊。"
+    goto welcome
+
+Step regConfirmAfter
+    Speak "预约成功！已为您挂号后天的门诊。"
+    goto welcome
+
+
+Step checkupType
+    Speak "我们提供基础体检、入职体检、老年体检。您想了解哪一种？"
+    Listen
+    Case "基础" -> goto chkBasic
+    Case "入职" -> goto chkJob
+    Case "老年" -> goto chkSenior
+    Default -> goto checkupFallback
+
+Step checkupFallback
+    Speak "抱歉，我没有听清。您可以说基础体检、入职体检或老年体检。"
+    goto checkupType
+
+
+Step chkBasic
+    Speak "基础体检包括血常规、B超、肝功能等项目，价格为299元。"
+    goto welcome
+
+Step chkJob
+    Speak "入职体检包含胸片、心电图和血检等项目，价格为399元。"
+    goto welcome
+
+Step chkSenior
+    Speak "老年体检包含心脑血管检查、骨密度等项目，价格为499元。"
+    goto welcome
+
+Step scienceIntro
+    Speak "您想了解饮食健康、睡眠健康、运动健康，还是想自由提问？"
+    Listen
+    Case "饮食" -> goto sciDiet
+    Case "睡眠" -> goto sciSleep
+    Case "运动" -> goto sciExercise
+    ai -> goto sciAI
+    Default -> goto scienceFallback
+
+Step scienceFallback
+    Speak "抱歉，我没听懂。您可以说：饮食、睡眠、运动，或自由提问。"
+    goto scienceIntro
+
+Step sciDiet
+    Speak "饮食健康建议多吃蔬果、减少油炸食品，避免暴饮暴食。"
+    goto welcome
+
+Step sciSleep
+    Speak "保证7小时睡眠、睡前避免使用手机能帮助改善睡眠质量。"
+    goto welcome
+
+Step sciExercise
+    Speak "每天适度运动30分钟，例如快走、骑车或瑜伽，有助于维持健康。"
+    goto welcome
+
+Step sciAI
+    AIReply
+    goto welcome
+
+Step fallback
+    Speak "我不太明白您的意思。您可以说挂号、体检、科普、导航、值班或人工服务。"
+    goto welcome
+
+Step goodbye
+    Speak "感谢使用智慧医院助手，祝您健康平安！"
+    Exit
