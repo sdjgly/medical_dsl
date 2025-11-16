@@ -17,7 +17,7 @@ Step regDept
     Case "外科" -> goto regDate
     Case "儿科" -> goto regDate
     Case "妇科" -> goto regDate
-    ai -> goto regAI
+    Case "ai" -> goto regAI
     Default -> goto regDeptFallback
 
 Step regDeptFallback
@@ -41,8 +41,6 @@ Step regDateFallback
     Speak "日期没有听清，请说今天、明天或后天。"
     goto regDate
 
-
-# 确认
 Step regConfirmToday
     Speak "好的，已为您预约了今天的就诊，请在智慧医院App中查看详情。"
     goto welcome
@@ -55,7 +53,6 @@ Step regConfirmAfter
     Speak "预约成功！已为您挂号后天的门诊。"
     goto welcome
 
-
 Step checkupType
     Speak "我们提供基础体检、入职体检、老年体检。您想了解哪一种？"
     Listen
@@ -67,7 +64,6 @@ Step checkupType
 Step checkupFallback
     Speak "抱歉，我没有听清。您可以说基础体检、入职体检或老年体检。"
     goto checkupType
-
 
 Step chkBasic
     Speak "基础体检包括血常规、B超、肝功能等项目，价格为299元。"
@@ -87,7 +83,7 @@ Step scienceIntro
     Case "饮食" -> goto sciDiet
     Case "睡眠" -> goto sciSleep
     Case "运动" -> goto sciExercise
-    ai -> goto sciAI
+    Case "ai" -> goto sciAI
     Default -> goto scienceFallback
 
 Step scienceFallback
@@ -111,7 +107,7 @@ Step sciAI
     goto welcome
 
 Step fallback
-    Speak "我不太明白您的意思。您可以说挂号、体检、科普、导航、值班或人工服务。"
+    Speak "我不太明白您的意思。您可以说挂号、体检、科普。"
     goto welcome
 
 Step goodbye
