@@ -2,7 +2,6 @@ import re
 from typing import Dict, List, Any, Tuple
 
 def parse_script(text: str) -> Dict[str, Any]:
-    """解析DSL脚本"""
     lines = text.splitlines()
     module = None
     steps = {}
@@ -82,7 +81,6 @@ def parse_script(text: str) -> Dict[str, Any]:
             steps[current_step]["actions"].append(("Default", target))
             continue
             
-        # 未知行
         raise SyntaxError(f"Unknown line: {line}")
     
     return {"module": module, "steps": steps}
