@@ -1,0 +1,137 @@
+{
+  "test_basic_flow": {
+    "test_name": "基本流程测试",
+    "passed": true,
+    "user_inputs": [
+      "挂号",
+      "内科",
+      "退出"
+    ],
+    "final_step": "goodbye",
+    "is_running": false,
+    "variables": {},
+    "llm_call_count": 4,
+    "conversation_turns": 8,
+    "error": null,
+    "conversation_summary": [
+      "assistant: 您好，这里是智慧医院综合服务中心，请问需要什么帮助？",
+      "user: 挂号",
+      "assistant: 好的，请问您想挂哪个科室？内科、外科、儿科还是妇科？",
+      "user: 内科",
+      "assistant: 预约成功！已为您挂号。",
+      "assistant: 您好，这里是智慧医院综合服务中心，请问需要什么帮助？",
+      "user: 退出",
+      "assistant: 感谢使用智慧医院助手，祝您健康平安！"
+    ]
+  },
+  "test_ai_reply_flow": {
+    "test_name": "AI回复流程测试",
+    "passed": true,
+    "user_inputs": [
+      "挂号",
+      "ai",
+      "测试问题",
+      "退出"
+    ],
+    "final_step": "goodbye",
+    "is_running": false,
+    "variables": {},
+    "llm_call_count": 4,
+    "conversation_turns": 11,
+    "error": null,
+    "conversation_summary": [
+      "assistant: 您好，这里是智慧医院综合服务中心，请问需要什么帮助？",
+      "user: 挂号",
+      "assistant: 好的，请问您想挂哪个科室？内科、外科、儿科还是妇科？",
+      "user: ai",
+      "assistant: [medical场景] 这是对 'ai' 的模拟AI回复",
+      "assistant: 您好，这里是智慧医院综合服务中心，请问需要什么帮助？",
+      "user: 测试问题",
+      "assistant: 我不太明白您的意思。您可以说挂号、体检、科普。",
+      "assistant: 您好，这里是智慧医院综合服务中心，请问需要什么帮助？",
+      "user: 退出",
+      "assistant: 感谢使用智慧医院助手，祝您健康平安！"
+    ]
+  },
+  "test_ecommerce_flow": {
+    "test_name": "电商流程测试",
+    "passed": false,
+    "user_inputs": [
+      "购买",
+      "手机",
+      "2",
+      "退出"
+    ],
+    "final_step": "goodbye",
+    "is_running": false,
+    "variables": {},
+    "llm_call_count": 4,
+    "conversation_turns": 12,
+    "error": null,
+    "conversation_summary": [
+      "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
+      "user: 购买",
+      "assistant: 好的，请告诉我想买什么商品？例如：手机、耳机、电脑。",
+      "user: 手机",
+      "assistant: 手机库存查询中，请稍候……",
+      "assistant: 抱歉，手机目前缺货。要看看其他商品吗？",
+      "assistant: 好的，请告诉我想买什么商品？例如：手机、耳机、电脑。",
+      "user: 2",
+      "assistant: 暂时没听清，您可以说例如：手机、耳机、电脑。",
+      "assistant: 好的，请告诉我想买什么商品？例如：手机、耳机、电脑。",
+      "user: 退出",
+      "assistant: 感谢使用智慧商城助手，祝您购物愉快！"
+    ]
+  },
+  "test_fallback_flow": {
+    "test_name": "回退流程测试",
+    "passed": true,
+    "user_inputs": [
+      "未知指令",
+      "挂号",
+      "退出"
+    ],
+    "final_step": "goodbye",
+    "is_running": false,
+    "variables": {},
+    "llm_call_count": 4,
+    "conversation_turns": 8,
+    "error": null,
+    "conversation_summary": [
+      "assistant: 您好，这里是智慧医院综合服务中心，请问需要什么帮助？",
+      "user: 未知指令",
+      "assistant: 我不太明白您的意思。您可以说挂号、体检、科普。",
+      "assistant: 您好，这里是智慧医院综合服务中心，请问需要什么帮助？",
+      "user: 挂号",
+      "assistant: 好的，请问您想挂哪个科室？内科、外科、儿科还是妇科？",
+      "user: 退出",
+      "assistant: 感谢使用智慧医院助手，祝您健康平安！"
+    ]
+  },
+  "test_complaint_flow": {
+    "test_name": "投诉流程测试",
+    "passed": true,
+    "user_inputs": [
+      "投诉",
+      "商品质量有问题",
+      "退出"
+    ],
+    "final_step": "goodbye",
+    "is_running": false,
+    "variables": {
+      "complaintText": "商品质量有问题"
+    },
+    "llm_call_count": 4,
+    "conversation_turns": 7,
+    "error": null,
+    "conversation_summary": [
+      "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
+      "user: 投诉",
+      "assistant: 非常抱歉给您带来困扰，请告诉我您的投诉内容。",
+      "user: 商品质量有问题",
+      "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
+      "user: 退出",
+      "assistant: 感谢使用智慧商城助手，祝您购物愉快！"
+    ]
+  }
+}
