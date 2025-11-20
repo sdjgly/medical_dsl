@@ -1,6 +1,6 @@
 import os
 import sys
-from parser import parse_script
+from dsl_parser import parse_script
 from interpreter import DSLInterpreter
 from llm_client import DeepSeekClient
 

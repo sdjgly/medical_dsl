@@ -1,0 +1,1030 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> script
+Rule 1     script -> module_def steps
+Rule 2     module_def -> MODULE STRING
+Rule 3     steps -> step steps
+Rule 4     steps -> step
+Rule 5     step -> STEP ID actions
+Rule 6     actions -> action actions
+Rule 7     actions -> action
+Rule 8     action -> speak_action
+Rule 9     action -> listen_action
+Rule 10    action -> case_action
+Rule 11    action -> default_action
+Rule 12    action -> goto_action
+Rule 13    action -> aireply_action
+Rule 14    action -> exit_action
+Rule 15    action -> lock_action
+Rule 16    action -> unlock_action
+Rule 17    action -> dbquery_action
+Rule 18    action -> dbexec_action
+Rule 19    action -> if_action
+Rule 20    action -> listen_assign_action
+Rule 21    speak_action -> SPEAK STRING
+Rule 22    listen_action -> LISTEN
+Rule 23    listen_assign_action -> LISTEN ASSIGN ID
+Rule 24    case_action -> CASE STRING ARROW GOTO ID
+Rule 25    default_action -> DEFAULT ARROW GOTO ID
+Rule 26    goto_action -> GOTO ID
+Rule 27    aireply_action -> AIREPLY
+Rule 28    exit_action -> EXIT
+Rule 29    lock_action -> LOCK STRING
+Rule 30    unlock_action -> UNLOCK STRING
+Rule 31    dbquery_action -> DBQUERY STRING ARROW GOTO ID ID
+Rule 32    dbexec_action -> DBEXEC STRING
+Rule 33    if_action -> IF condition ARROW GOTO ID
+Rule 34    condition -> ID COMPARE NUMBER
+Rule 35    condition -> ID COMPARE ID
+Rule 36    condition -> ID COMPARE STRING
+
+Terminals, with rules where they appear
+
+AIREPLY              : 27
+ARROW                : 24 25 31 33
+ASSIGN               : 23
+CASE                 : 24
+COMPARE              : 34 35 36
+DBEXEC               : 32
+DBQUERY              : 31
+DEFAULT              : 25
+EXIT                 : 28
+GOTO                 : 24 25 26 31 33
+ID                   : 5 23 24 25 26 31 31 33 34 35 35 36
+IF                   : 33
+LISTEN               : 22 23
+LOCK                 : 29
+MODULE               : 2
+NUMBER               : 34
+SPEAK                : 21
+STEP                 : 5
+STRING               : 2 21 24 29 30 31 32 36
+UNLOCK               : 30
+error                : 
+
+Nonterminals, with rules where they appear
+
+action               : 6 7
+actions              : 5 6
+aireply_action       : 13
+case_action          : 10
+condition            : 33
+dbexec_action        : 18
+dbquery_action       : 17
+default_action       : 11
+exit_action          : 14
+goto_action          : 12
+if_action            : 19
+listen_action        : 9
+listen_assign_action : 20
+lock_action          : 15
+module_def           : 1
+script               : 0
+speak_action         : 8
+step                 : 3 4
+steps                : 1 3
+unlock_action        : 16
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . script
+    (1) script -> . module_def steps
+    (2) module_def -> . MODULE STRING
+
+    MODULE          shift and go to state 3
+
+    script                         shift and go to state 1
+    module_def                     shift and go to state 2
+
+state 1
+
+    (0) S' -> script .
+
+
+
+state 2
+
+    (1) script -> module_def . steps
+    (3) steps -> . step steps
+    (4) steps -> . step
+    (5) step -> . STEP ID actions
+
+    STEP            shift and go to state 6
+
+    steps                          shift and go to state 4
+    step                           shift and go to state 5
+
+state 3
+
+    (2) module_def -> MODULE . STRING
+
+    STRING          shift and go to state 7
+
+
+state 4
+
+    (1) script -> module_def steps .
+
+    $end            reduce using rule 1 (script -> module_def steps .)
+
+
+state 5
+
+    (3) steps -> step . steps
+    (4) steps -> step .
+    (3) steps -> . step steps
+    (4) steps -> . step
+    (5) step -> . STEP ID actions
+
+    $end            reduce using rule 4 (steps -> step .)
+    STEP            shift and go to state 6
+
+    step                           shift and go to state 5
+    steps                          shift and go to state 8
+
+state 6
+
+    (5) step -> STEP . ID actions
+
+    ID              shift and go to state 9
+
+
+state 7
+
+    (2) module_def -> MODULE STRING .
+
+    STEP            reduce using rule 2 (module_def -> MODULE STRING .)
+
+
+state 8
+
+    (3) steps -> step steps .
+
+    $end            reduce using rule 3 (steps -> step steps .)
+
+
+state 9
+
+    (5) step -> STEP ID . actions
+    (6) actions -> . action actions
+    (7) actions -> . action
+    (8) action -> . speak_action
+    (9) action -> . listen_action
+    (10) action -> . case_action
+    (11) action -> . default_action
+    (12) action -> . goto_action
+    (13) action -> . aireply_action
+    (14) action -> . exit_action
+    (15) action -> . lock_action
+    (16) action -> . unlock_action
+    (17) action -> . dbquery_action
+    (18) action -> . dbexec_action
+    (19) action -> . if_action
+    (20) action -> . listen_assign_action
+    (21) speak_action -> . SPEAK STRING
+    (22) listen_action -> . LISTEN
+    (24) case_action -> . CASE STRING ARROW GOTO ID
+    (25) default_action -> . DEFAULT ARROW GOTO ID
+    (26) goto_action -> . GOTO ID
+    (27) aireply_action -> . AIREPLY
+    (28) exit_action -> . EXIT
+    (29) lock_action -> . LOCK STRING
+    (30) unlock_action -> . UNLOCK STRING
+    (31) dbquery_action -> . DBQUERY STRING ARROW GOTO ID ID
+    (32) dbexec_action -> . DBEXEC STRING
+    (33) if_action -> . IF condition ARROW GOTO ID
+    (23) listen_assign_action -> . LISTEN ASSIGN ID
+
+    SPEAK           shift and go to state 25
+    LISTEN          shift and go to state 26
+    CASE            shift and go to state 27
+    DEFAULT         shift and go to state 29
+    GOTO            shift and go to state 28
+    AIREPLY         shift and go to state 30
+    EXIT            shift and go to state 31
+    LOCK            shift and go to state 32
+    UNLOCK          shift and go to state 33
+    DBQUERY         shift and go to state 34
+    DBEXEC          shift and go to state 35
+    IF              shift and go to state 36
+
+    actions                        shift and go to state 10
+    action                         shift and go to state 11
+    speak_action                   shift and go to state 12
+    listen_action                  shift and go to state 13
+    case_action                    shift and go to state 14
+    default_action                 shift and go to state 15
+    goto_action                    shift and go to state 16
+    aireply_action                 shift and go to state 17
+    exit_action                    shift and go to state 18
+    lock_action                    shift and go to state 19
+    unlock_action                  shift and go to state 20
+    dbquery_action                 shift and go to state 21
+    dbexec_action                  shift and go to state 22
+    if_action                      shift and go to state 23
+    listen_assign_action           shift and go to state 24
+
+state 10
+
+    (5) step -> STEP ID actions .
+
+    STEP            reduce using rule 5 (step -> STEP ID actions .)
+    $end            reduce using rule 5 (step -> STEP ID actions .)
+
+
+state 11
+
+    (6) actions -> action . actions
+    (7) actions -> action .
+    (6) actions -> . action actions
+    (7) actions -> . action
+    (8) action -> . speak_action
+    (9) action -> . listen_action
+    (10) action -> . case_action
+    (11) action -> . default_action
+    (12) action -> . goto_action
+    (13) action -> . aireply_action
+    (14) action -> . exit_action
+    (15) action -> . lock_action
+    (16) action -> . unlock_action
+    (17) action -> . dbquery_action
+    (18) action -> . dbexec_action
+    (19) action -> . if_action
+    (20) action -> . listen_assign_action
+    (21) speak_action -> . SPEAK STRING
+    (22) listen_action -> . LISTEN
+    (24) case_action -> . CASE STRING ARROW GOTO ID
+    (25) default_action -> . DEFAULT ARROW GOTO ID
+    (26) goto_action -> . GOTO ID
+    (27) aireply_action -> . AIREPLY
+    (28) exit_action -> . EXIT
+    (29) lock_action -> . LOCK STRING
+    (30) unlock_action -> . UNLOCK STRING
+    (31) dbquery_action -> . DBQUERY STRING ARROW GOTO ID ID
+    (32) dbexec_action -> . DBEXEC STRING
+    (33) if_action -> . IF condition ARROW GOTO ID
+    (23) listen_assign_action -> . LISTEN ASSIGN ID
+
+    STEP            reduce using rule 7 (actions -> action .)
+    $end            reduce using rule 7 (actions -> action .)
+    SPEAK           shift and go to state 25
+    LISTEN          shift and go to state 26
+    CASE            shift and go to state 27
+    DEFAULT         shift and go to state 29
+    GOTO            shift and go to state 28
+    AIREPLY         shift and go to state 30
+    EXIT            shift and go to state 31
+    LOCK            shift and go to state 32
+    UNLOCK          shift and go to state 33
+    DBQUERY         shift and go to state 34
+    DBEXEC          shift and go to state 35
+    IF              shift and go to state 36
+
+    action                         shift and go to state 11
+    actions                        shift and go to state 37
+    speak_action                   shift and go to state 12
+    listen_action                  shift and go to state 13
+    case_action                    shift and go to state 14
+    default_action                 shift and go to state 15
+    goto_action                    shift and go to state 16
+    aireply_action                 shift and go to state 17
+    exit_action                    shift and go to state 18
+    lock_action                    shift and go to state 19
+    unlock_action                  shift and go to state 20
+    dbquery_action                 shift and go to state 21
+    dbexec_action                  shift and go to state 22
+    if_action                      shift and go to state 23
+    listen_assign_action           shift and go to state 24
+
+state 12
+
+    (8) action -> speak_action .
+
+    SPEAK           reduce using rule 8 (action -> speak_action .)
+    LISTEN          reduce using rule 8 (action -> speak_action .)
+    CASE            reduce using rule 8 (action -> speak_action .)
+    DEFAULT         reduce using rule 8 (action -> speak_action .)
+    GOTO            reduce using rule 8 (action -> speak_action .)
+    AIREPLY         reduce using rule 8 (action -> speak_action .)
+    EXIT            reduce using rule 8 (action -> speak_action .)
+    LOCK            reduce using rule 8 (action -> speak_action .)
+    UNLOCK          reduce using rule 8 (action -> speak_action .)
+    DBQUERY         reduce using rule 8 (action -> speak_action .)
+    DBEXEC          reduce using rule 8 (action -> speak_action .)
+    IF              reduce using rule 8 (action -> speak_action .)
+    STEP            reduce using rule 8 (action -> speak_action .)
+    $end            reduce using rule 8 (action -> speak_action .)
+
+
+state 13
+
+    (9) action -> listen_action .
+
+    SPEAK           reduce using rule 9 (action -> listen_action .)
+    LISTEN          reduce using rule 9 (action -> listen_action .)
+    CASE            reduce using rule 9 (action -> listen_action .)
+    DEFAULT         reduce using rule 9 (action -> listen_action .)
+    GOTO            reduce using rule 9 (action -> listen_action .)
+    AIREPLY         reduce using rule 9 (action -> listen_action .)
+    EXIT            reduce using rule 9 (action -> listen_action .)
+    LOCK            reduce using rule 9 (action -> listen_action .)
+    UNLOCK          reduce using rule 9 (action -> listen_action .)
+    DBQUERY         reduce using rule 9 (action -> listen_action .)
+    DBEXEC          reduce using rule 9 (action -> listen_action .)
+    IF              reduce using rule 9 (action -> listen_action .)
+    STEP            reduce using rule 9 (action -> listen_action .)
+    $end            reduce using rule 9 (action -> listen_action .)
+
+
+state 14
+
+    (10) action -> case_action .
+
+    SPEAK           reduce using rule 10 (action -> case_action .)
+    LISTEN          reduce using rule 10 (action -> case_action .)
+    CASE            reduce using rule 10 (action -> case_action .)
+    DEFAULT         reduce using rule 10 (action -> case_action .)
+    GOTO            reduce using rule 10 (action -> case_action .)
+    AIREPLY         reduce using rule 10 (action -> case_action .)
+    EXIT            reduce using rule 10 (action -> case_action .)
+    LOCK            reduce using rule 10 (action -> case_action .)
+    UNLOCK          reduce using rule 10 (action -> case_action .)
+    DBQUERY         reduce using rule 10 (action -> case_action .)
+    DBEXEC          reduce using rule 10 (action -> case_action .)
+    IF              reduce using rule 10 (action -> case_action .)
+    STEP            reduce using rule 10 (action -> case_action .)
+    $end            reduce using rule 10 (action -> case_action .)
+
+
+state 15
+
+    (11) action -> default_action .
+
+    SPEAK           reduce using rule 11 (action -> default_action .)
+    LISTEN          reduce using rule 11 (action -> default_action .)
+    CASE            reduce using rule 11 (action -> default_action .)
+    DEFAULT         reduce using rule 11 (action -> default_action .)
+    GOTO            reduce using rule 11 (action -> default_action .)
+    AIREPLY         reduce using rule 11 (action -> default_action .)
+    EXIT            reduce using rule 11 (action -> default_action .)
+    LOCK            reduce using rule 11 (action -> default_action .)
+    UNLOCK          reduce using rule 11 (action -> default_action .)
+    DBQUERY         reduce using rule 11 (action -> default_action .)
+    DBEXEC          reduce using rule 11 (action -> default_action .)
+    IF              reduce using rule 11 (action -> default_action .)
+    STEP            reduce using rule 11 (action -> default_action .)
+    $end            reduce using rule 11 (action -> default_action .)
+
+
+state 16
+
+    (12) action -> goto_action .
+
+    SPEAK           reduce using rule 12 (action -> goto_action .)
+    LISTEN          reduce using rule 12 (action -> goto_action .)
+    CASE            reduce using rule 12 (action -> goto_action .)
+    DEFAULT         reduce using rule 12 (action -> goto_action .)
+    GOTO            reduce using rule 12 (action -> goto_action .)
+    AIREPLY         reduce using rule 12 (action -> goto_action .)
+    EXIT            reduce using rule 12 (action -> goto_action .)
+    LOCK            reduce using rule 12 (action -> goto_action .)
+    UNLOCK          reduce using rule 12 (action -> goto_action .)
+    DBQUERY         reduce using rule 12 (action -> goto_action .)
+    DBEXEC          reduce using rule 12 (action -> goto_action .)
+    IF              reduce using rule 12 (action -> goto_action .)
+    STEP            reduce using rule 12 (action -> goto_action .)
+    $end            reduce using rule 12 (action -> goto_action .)
+
+
+state 17
+
+    (13) action -> aireply_action .
+
+    SPEAK           reduce using rule 13 (action -> aireply_action .)
+    LISTEN          reduce using rule 13 (action -> aireply_action .)
+    CASE            reduce using rule 13 (action -> aireply_action .)
+    DEFAULT         reduce using rule 13 (action -> aireply_action .)
+    GOTO            reduce using rule 13 (action -> aireply_action .)
+    AIREPLY         reduce using rule 13 (action -> aireply_action .)
+    EXIT            reduce using rule 13 (action -> aireply_action .)
+    LOCK            reduce using rule 13 (action -> aireply_action .)
+    UNLOCK          reduce using rule 13 (action -> aireply_action .)
+    DBQUERY         reduce using rule 13 (action -> aireply_action .)
+    DBEXEC          reduce using rule 13 (action -> aireply_action .)
+    IF              reduce using rule 13 (action -> aireply_action .)
+    STEP            reduce using rule 13 (action -> aireply_action .)
+    $end            reduce using rule 13 (action -> aireply_action .)
+
+
+state 18
+
+    (14) action -> exit_action .
+
+    SPEAK           reduce using rule 14 (action -> exit_action .)
+    LISTEN          reduce using rule 14 (action -> exit_action .)
+    CASE            reduce using rule 14 (action -> exit_action .)
+    DEFAULT         reduce using rule 14 (action -> exit_action .)
+    GOTO            reduce using rule 14 (action -> exit_action .)
+    AIREPLY         reduce using rule 14 (action -> exit_action .)
+    EXIT            reduce using rule 14 (action -> exit_action .)
+    LOCK            reduce using rule 14 (action -> exit_action .)
+    UNLOCK          reduce using rule 14 (action -> exit_action .)
+    DBQUERY         reduce using rule 14 (action -> exit_action .)
+    DBEXEC          reduce using rule 14 (action -> exit_action .)
+    IF              reduce using rule 14 (action -> exit_action .)
+    STEP            reduce using rule 14 (action -> exit_action .)
+    $end            reduce using rule 14 (action -> exit_action .)
+
+
+state 19
+
+    (15) action -> lock_action .
+
+    SPEAK           reduce using rule 15 (action -> lock_action .)
+    LISTEN          reduce using rule 15 (action -> lock_action .)
+    CASE            reduce using rule 15 (action -> lock_action .)
+    DEFAULT         reduce using rule 15 (action -> lock_action .)
+    GOTO            reduce using rule 15 (action -> lock_action .)
+    AIREPLY         reduce using rule 15 (action -> lock_action .)
+    EXIT            reduce using rule 15 (action -> lock_action .)
+    LOCK            reduce using rule 15 (action -> lock_action .)
+    UNLOCK          reduce using rule 15 (action -> lock_action .)
+    DBQUERY         reduce using rule 15 (action -> lock_action .)
+    DBEXEC          reduce using rule 15 (action -> lock_action .)
+    IF              reduce using rule 15 (action -> lock_action .)
+    STEP            reduce using rule 15 (action -> lock_action .)
+    $end            reduce using rule 15 (action -> lock_action .)
+
+
+state 20
+
+    (16) action -> unlock_action .
+
+    SPEAK           reduce using rule 16 (action -> unlock_action .)
+    LISTEN          reduce using rule 16 (action -> unlock_action .)
+    CASE            reduce using rule 16 (action -> unlock_action .)
+    DEFAULT         reduce using rule 16 (action -> unlock_action .)
+    GOTO            reduce using rule 16 (action -> unlock_action .)
+    AIREPLY         reduce using rule 16 (action -> unlock_action .)
+    EXIT            reduce using rule 16 (action -> unlock_action .)
+    LOCK            reduce using rule 16 (action -> unlock_action .)
+    UNLOCK          reduce using rule 16 (action -> unlock_action .)
+    DBQUERY         reduce using rule 16 (action -> unlock_action .)
+    DBEXEC          reduce using rule 16 (action -> unlock_action .)
+    IF              reduce using rule 16 (action -> unlock_action .)
+    STEP            reduce using rule 16 (action -> unlock_action .)
+    $end            reduce using rule 16 (action -> unlock_action .)
+
+
+state 21
+
+    (17) action -> dbquery_action .
+
+    SPEAK           reduce using rule 17 (action -> dbquery_action .)
+    LISTEN          reduce using rule 17 (action -> dbquery_action .)
+    CASE            reduce using rule 17 (action -> dbquery_action .)
+    DEFAULT         reduce using rule 17 (action -> dbquery_action .)
+    GOTO            reduce using rule 17 (action -> dbquery_action .)
+    AIREPLY         reduce using rule 17 (action -> dbquery_action .)
+    EXIT            reduce using rule 17 (action -> dbquery_action .)
+    LOCK            reduce using rule 17 (action -> dbquery_action .)
+    UNLOCK          reduce using rule 17 (action -> dbquery_action .)
+    DBQUERY         reduce using rule 17 (action -> dbquery_action .)
+    DBEXEC          reduce using rule 17 (action -> dbquery_action .)
+    IF              reduce using rule 17 (action -> dbquery_action .)
+    STEP            reduce using rule 17 (action -> dbquery_action .)
+    $end            reduce using rule 17 (action -> dbquery_action .)
+
+
+state 22
+
+    (18) action -> dbexec_action .
+
+    SPEAK           reduce using rule 18 (action -> dbexec_action .)
+    LISTEN          reduce using rule 18 (action -> dbexec_action .)
+    CASE            reduce using rule 18 (action -> dbexec_action .)
+    DEFAULT         reduce using rule 18 (action -> dbexec_action .)
+    GOTO            reduce using rule 18 (action -> dbexec_action .)
+    AIREPLY         reduce using rule 18 (action -> dbexec_action .)
+    EXIT            reduce using rule 18 (action -> dbexec_action .)
+    LOCK            reduce using rule 18 (action -> dbexec_action .)
+    UNLOCK          reduce using rule 18 (action -> dbexec_action .)
+    DBQUERY         reduce using rule 18 (action -> dbexec_action .)
+    DBEXEC          reduce using rule 18 (action -> dbexec_action .)
+    IF              reduce using rule 18 (action -> dbexec_action .)
+    STEP            reduce using rule 18 (action -> dbexec_action .)
+    $end            reduce using rule 18 (action -> dbexec_action .)
+
+
+state 23
+
+    (19) action -> if_action .
+
+    SPEAK           reduce using rule 19 (action -> if_action .)
+    LISTEN          reduce using rule 19 (action -> if_action .)
+    CASE            reduce using rule 19 (action -> if_action .)
+    DEFAULT         reduce using rule 19 (action -> if_action .)
+    GOTO            reduce using rule 19 (action -> if_action .)
+    AIREPLY         reduce using rule 19 (action -> if_action .)
+    EXIT            reduce using rule 19 (action -> if_action .)
+    LOCK            reduce using rule 19 (action -> if_action .)
+    UNLOCK          reduce using rule 19 (action -> if_action .)
+    DBQUERY         reduce using rule 19 (action -> if_action .)
+    DBEXEC          reduce using rule 19 (action -> if_action .)
+    IF              reduce using rule 19 (action -> if_action .)
+    STEP            reduce using rule 19 (action -> if_action .)
+    $end            reduce using rule 19 (action -> if_action .)
+
+
+state 24
+
+    (20) action -> listen_assign_action .
+
+    SPEAK           reduce using rule 20 (action -> listen_assign_action .)
+    LISTEN          reduce using rule 20 (action -> listen_assign_action .)
+    CASE            reduce using rule 20 (action -> listen_assign_action .)
+    DEFAULT         reduce using rule 20 (action -> listen_assign_action .)
+    GOTO            reduce using rule 20 (action -> listen_assign_action .)
+    AIREPLY         reduce using rule 20 (action -> listen_assign_action .)
+    EXIT            reduce using rule 20 (action -> listen_assign_action .)
+    LOCK            reduce using rule 20 (action -> listen_assign_action .)
+    UNLOCK          reduce using rule 20 (action -> listen_assign_action .)
+    DBQUERY         reduce using rule 20 (action -> listen_assign_action .)
+    DBEXEC          reduce using rule 20 (action -> listen_assign_action .)
+    IF              reduce using rule 20 (action -> listen_assign_action .)
+    STEP            reduce using rule 20 (action -> listen_assign_action .)
+    $end            reduce using rule 20 (action -> listen_assign_action .)
+
+
+state 25
+
+    (21) speak_action -> SPEAK . STRING
+
+    STRING          shift and go to state 38
+
+
+state 26
+
+    (22) listen_action -> LISTEN .
+    (23) listen_assign_action -> LISTEN . ASSIGN ID
+
+    SPEAK           reduce using rule 22 (listen_action -> LISTEN .)
+    LISTEN          reduce using rule 22 (listen_action -> LISTEN .)
+    CASE            reduce using rule 22 (listen_action -> LISTEN .)
+    DEFAULT         reduce using rule 22 (listen_action -> LISTEN .)
+    GOTO            reduce using rule 22 (listen_action -> LISTEN .)
+    AIREPLY         reduce using rule 22 (listen_action -> LISTEN .)
+    EXIT            reduce using rule 22 (listen_action -> LISTEN .)
+    LOCK            reduce using rule 22 (listen_action -> LISTEN .)
+    UNLOCK          reduce using rule 22 (listen_action -> LISTEN .)
+    DBQUERY         reduce using rule 22 (listen_action -> LISTEN .)
+    DBEXEC          reduce using rule 22 (listen_action -> LISTEN .)
+    IF              reduce using rule 22 (listen_action -> LISTEN .)
+    STEP            reduce using rule 22 (listen_action -> LISTEN .)
+    $end            reduce using rule 22 (listen_action -> LISTEN .)
+    ASSIGN          shift and go to state 39
+
+
+state 27
+
+    (24) case_action -> CASE . STRING ARROW GOTO ID
+
+    STRING          shift and go to state 40
+
+
+state 28
+
+    (26) goto_action -> GOTO . ID
+
+    ID              shift and go to state 41
+
+
+state 29
+
+    (25) default_action -> DEFAULT . ARROW GOTO ID
+
+    ARROW           shift and go to state 42
+
+
+state 30
+
+    (27) aireply_action -> AIREPLY .
+
+    SPEAK           reduce using rule 27 (aireply_action -> AIREPLY .)
+    LISTEN          reduce using rule 27 (aireply_action -> AIREPLY .)
+    CASE            reduce using rule 27 (aireply_action -> AIREPLY .)
+    DEFAULT         reduce using rule 27 (aireply_action -> AIREPLY .)
+    GOTO            reduce using rule 27 (aireply_action -> AIREPLY .)
+    AIREPLY         reduce using rule 27 (aireply_action -> AIREPLY .)
+    EXIT            reduce using rule 27 (aireply_action -> AIREPLY .)
+    LOCK            reduce using rule 27 (aireply_action -> AIREPLY .)
+    UNLOCK          reduce using rule 27 (aireply_action -> AIREPLY .)
+    DBQUERY         reduce using rule 27 (aireply_action -> AIREPLY .)
+    DBEXEC          reduce using rule 27 (aireply_action -> AIREPLY .)
+    IF              reduce using rule 27 (aireply_action -> AIREPLY .)
+    STEP            reduce using rule 27 (aireply_action -> AIREPLY .)
+    $end            reduce using rule 27 (aireply_action -> AIREPLY .)
+
+
+state 31
+
+    (28) exit_action -> EXIT .
+
+    SPEAK           reduce using rule 28 (exit_action -> EXIT .)
+    LISTEN          reduce using rule 28 (exit_action -> EXIT .)
+    CASE            reduce using rule 28 (exit_action -> EXIT .)
+    DEFAULT         reduce using rule 28 (exit_action -> EXIT .)
+    GOTO            reduce using rule 28 (exit_action -> EXIT .)
+    AIREPLY         reduce using rule 28 (exit_action -> EXIT .)
+    EXIT            reduce using rule 28 (exit_action -> EXIT .)
+    LOCK            reduce using rule 28 (exit_action -> EXIT .)
+    UNLOCK          reduce using rule 28 (exit_action -> EXIT .)
+    DBQUERY         reduce using rule 28 (exit_action -> EXIT .)
+    DBEXEC          reduce using rule 28 (exit_action -> EXIT .)
+    IF              reduce using rule 28 (exit_action -> EXIT .)
+    STEP            reduce using rule 28 (exit_action -> EXIT .)
+    $end            reduce using rule 28 (exit_action -> EXIT .)
+
+
+state 32
+
+    (29) lock_action -> LOCK . STRING
+
+    STRING          shift and go to state 43
+
+
+state 33
+
+    (30) unlock_action -> UNLOCK . STRING
+
+    STRING          shift and go to state 44
+
+
+state 34
+
+    (31) dbquery_action -> DBQUERY . STRING ARROW GOTO ID ID
+
+    STRING          shift and go to state 45
+
+
+state 35
+
+    (32) dbexec_action -> DBEXEC . STRING
+
+    STRING          shift and go to state 46
+
+
+state 36
+
+    (33) if_action -> IF . condition ARROW GOTO ID
+    (34) condition -> . ID COMPARE NUMBER
+    (35) condition -> . ID COMPARE ID
+    (36) condition -> . ID COMPARE STRING
+
+    ID              shift and go to state 48
+
+    condition                      shift and go to state 47
+
+state 37
+
+    (6) actions -> action actions .
+
+    STEP            reduce using rule 6 (actions -> action actions .)
+    $end            reduce using rule 6 (actions -> action actions .)
+
+
+state 38
+
+    (21) speak_action -> SPEAK STRING .
+
+    SPEAK           reduce using rule 21 (speak_action -> SPEAK STRING .)
+    LISTEN          reduce using rule 21 (speak_action -> SPEAK STRING .)
+    CASE            reduce using rule 21 (speak_action -> SPEAK STRING .)
+    DEFAULT         reduce using rule 21 (speak_action -> SPEAK STRING .)
+    GOTO            reduce using rule 21 (speak_action -> SPEAK STRING .)
+    AIREPLY         reduce using rule 21 (speak_action -> SPEAK STRING .)
+    EXIT            reduce using rule 21 (speak_action -> SPEAK STRING .)
+    LOCK            reduce using rule 21 (speak_action -> SPEAK STRING .)
+    UNLOCK          reduce using rule 21 (speak_action -> SPEAK STRING .)
+    DBQUERY         reduce using rule 21 (speak_action -> SPEAK STRING .)
+    DBEXEC          reduce using rule 21 (speak_action -> SPEAK STRING .)
+    IF              reduce using rule 21 (speak_action -> SPEAK STRING .)
+    STEP            reduce using rule 21 (speak_action -> SPEAK STRING .)
+    $end            reduce using rule 21 (speak_action -> SPEAK STRING .)
+
+
+state 39
+
+    (23) listen_assign_action -> LISTEN ASSIGN . ID
+
+    ID              shift and go to state 49
+
+
+state 40
+
+    (24) case_action -> CASE STRING . ARROW GOTO ID
+
+    ARROW           shift and go to state 50
+
+
+state 41
+
+    (26) goto_action -> GOTO ID .
+
+    SPEAK           reduce using rule 26 (goto_action -> GOTO ID .)
+    LISTEN          reduce using rule 26 (goto_action -> GOTO ID .)
+    CASE            reduce using rule 26 (goto_action -> GOTO ID .)
+    DEFAULT         reduce using rule 26 (goto_action -> GOTO ID .)
+    GOTO            reduce using rule 26 (goto_action -> GOTO ID .)
+    AIREPLY         reduce using rule 26 (goto_action -> GOTO ID .)
+    EXIT            reduce using rule 26 (goto_action -> GOTO ID .)
+    LOCK            reduce using rule 26 (goto_action -> GOTO ID .)
+    UNLOCK          reduce using rule 26 (goto_action -> GOTO ID .)
+    DBQUERY         reduce using rule 26 (goto_action -> GOTO ID .)
+    DBEXEC          reduce using rule 26 (goto_action -> GOTO ID .)
+    IF              reduce using rule 26 (goto_action -> GOTO ID .)
+    STEP            reduce using rule 26 (goto_action -> GOTO ID .)
+    $end            reduce using rule 26 (goto_action -> GOTO ID .)
+
+
+state 42
+
+    (25) default_action -> DEFAULT ARROW . GOTO ID
+
+    GOTO            shift and go to state 51
+
+
+state 43
+
+    (29) lock_action -> LOCK STRING .
+
+    SPEAK           reduce using rule 29 (lock_action -> LOCK STRING .)
+    LISTEN          reduce using rule 29 (lock_action -> LOCK STRING .)
+    CASE            reduce using rule 29 (lock_action -> LOCK STRING .)
+    DEFAULT         reduce using rule 29 (lock_action -> LOCK STRING .)
+    GOTO            reduce using rule 29 (lock_action -> LOCK STRING .)
+    AIREPLY         reduce using rule 29 (lock_action -> LOCK STRING .)
+    EXIT            reduce using rule 29 (lock_action -> LOCK STRING .)
+    LOCK            reduce using rule 29 (lock_action -> LOCK STRING .)
+    UNLOCK          reduce using rule 29 (lock_action -> LOCK STRING .)
+    DBQUERY         reduce using rule 29 (lock_action -> LOCK STRING .)
+    DBEXEC          reduce using rule 29 (lock_action -> LOCK STRING .)
+    IF              reduce using rule 29 (lock_action -> LOCK STRING .)
+    STEP            reduce using rule 29 (lock_action -> LOCK STRING .)
+    $end            reduce using rule 29 (lock_action -> LOCK STRING .)
+
+
+state 44
+
+    (30) unlock_action -> UNLOCK STRING .
+
+    SPEAK           reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    LISTEN          reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    CASE            reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    DEFAULT         reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    GOTO            reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    AIREPLY         reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    EXIT            reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    LOCK            reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    UNLOCK          reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    DBQUERY         reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    DBEXEC          reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    IF              reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    STEP            reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+    $end            reduce using rule 30 (unlock_action -> UNLOCK STRING .)
+
+
+state 45
+
+    (31) dbquery_action -> DBQUERY STRING . ARROW GOTO ID ID
+
+    ARROW           shift and go to state 52
+
+
+state 46
+
+    (32) dbexec_action -> DBEXEC STRING .
+
+    SPEAK           reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    LISTEN          reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    CASE            reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    DEFAULT         reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    GOTO            reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    AIREPLY         reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    EXIT            reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    LOCK            reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    UNLOCK          reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    DBQUERY         reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    DBEXEC          reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    IF              reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    STEP            reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+    $end            reduce using rule 32 (dbexec_action -> DBEXEC STRING .)
+
+
+state 47
+
+    (33) if_action -> IF condition . ARROW GOTO ID
+
+    ARROW           shift and go to state 53
+
+
+state 48
+
+    (34) condition -> ID . COMPARE NUMBER
+    (35) condition -> ID . COMPARE ID
+    (36) condition -> ID . COMPARE STRING
+
+    COMPARE         shift and go to state 54
+
+
+state 49
+
+    (23) listen_assign_action -> LISTEN ASSIGN ID .
+
+    SPEAK           reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    LISTEN          reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    CASE            reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    DEFAULT         reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    GOTO            reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    AIREPLY         reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    EXIT            reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    LOCK            reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    UNLOCK          reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    DBQUERY         reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    DBEXEC          reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    IF              reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    STEP            reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+    $end            reduce using rule 23 (listen_assign_action -> LISTEN ASSIGN ID .)
+
+
+state 50
+
+    (24) case_action -> CASE STRING ARROW . GOTO ID
+
+    GOTO            shift and go to state 55
+
+
+state 51
+
+    (25) default_action -> DEFAULT ARROW GOTO . ID
+
+    ID              shift and go to state 56
+
+
+state 52
+
+    (31) dbquery_action -> DBQUERY STRING ARROW . GOTO ID ID
+
+    GOTO            shift and go to state 57
+
+
+state 53
+
+    (33) if_action -> IF condition ARROW . GOTO ID
+
+    GOTO            shift and go to state 58
+
+
+state 54
+
+    (34) condition -> ID COMPARE . NUMBER
+    (35) condition -> ID COMPARE . ID
+    (36) condition -> ID COMPARE . STRING
+
+    NUMBER          shift and go to state 60
+    ID              shift and go to state 59
+    STRING          shift and go to state 61
+
+
+state 55
+
+    (24) case_action -> CASE STRING ARROW GOTO . ID
+
+    ID              shift and go to state 62
+
+
+state 56
+
+    (25) default_action -> DEFAULT ARROW GOTO ID .
+
+    SPEAK           reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    LISTEN          reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    CASE            reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    DEFAULT         reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    GOTO            reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    AIREPLY         reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    EXIT            reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    LOCK            reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    UNLOCK          reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    DBQUERY         reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    DBEXEC          reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    IF              reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    STEP            reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+    $end            reduce using rule 25 (default_action -> DEFAULT ARROW GOTO ID .)
+
+
+state 57
+
+    (31) dbquery_action -> DBQUERY STRING ARROW GOTO . ID ID
+
+    ID              shift and go to state 63
+
+
+state 58
+
+    (33) if_action -> IF condition ARROW GOTO . ID
+
+    ID              shift and go to state 64
+
+
+state 59
+
+    (35) condition -> ID COMPARE ID .
+
+    ARROW           reduce using rule 35 (condition -> ID COMPARE ID .)
+
+
+state 60
+
+    (34) condition -> ID COMPARE NUMBER .
+
+    ARROW           reduce using rule 34 (condition -> ID COMPARE NUMBER .)
+
+
+state 61
+
+    (36) condition -> ID COMPARE STRING .
+
+    ARROW           reduce using rule 36 (condition -> ID COMPARE STRING .)
+
+
+state 62
+
+    (24) case_action -> CASE STRING ARROW GOTO ID .
+
+    SPEAK           reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    LISTEN          reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    CASE            reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    DEFAULT         reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    GOTO            reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    AIREPLY         reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    EXIT            reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    LOCK            reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    UNLOCK          reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    DBQUERY         reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    DBEXEC          reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    IF              reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    STEP            reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+    $end            reduce using rule 24 (case_action -> CASE STRING ARROW GOTO ID .)
+
+
+state 63
+
+    (31) dbquery_action -> DBQUERY STRING ARROW GOTO ID . ID
+
+    ID              shift and go to state 65
+
+
+state 64
+
+    (33) if_action -> IF condition ARROW GOTO ID .
+
+    SPEAK           reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    LISTEN          reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    CASE            reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    DEFAULT         reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    GOTO            reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    AIREPLY         reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    EXIT            reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    LOCK            reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    UNLOCK          reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    DBQUERY         reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    DBEXEC          reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    IF              reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    STEP            reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+    $end            reduce using rule 33 (if_action -> IF condition ARROW GOTO ID .)
+
+
+state 65
+
+    (31) dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .
+
+    SPEAK           reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    LISTEN          reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    CASE            reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    DEFAULT         reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    GOTO            reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    AIREPLY         reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    EXIT            reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    LOCK            reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    UNLOCK          reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    DBQUERY         reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    DBEXEC          reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    IF              reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    STEP            reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+    $end            reduce using rule 31 (dbquery_action -> DBQUERY STRING ARROW GOTO ID ID .)
+

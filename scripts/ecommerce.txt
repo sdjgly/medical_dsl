@@ -1,0 +1,122 @@
+module "ecommerce"
+
+Step welcome
+    Speak "您好，欢迎来到智慧商城，请问需要什么帮助？"
+    Listen
+    Case "买" -> goto buyStart
+    Case "购买" -> goto buyStart
+    Case "下单" -> goto buyStart
+    Case "投诉" -> goto complaintStart
+    Case "退款" -> goto refundStart
+    Case "客服" -> goto humanService
+    Case "退出" -> goto goodbye
+    Default -> goto fallback
+
+Step buyStart
+    Speak "好的，请告诉我想买什么商品？例如：手机、耳机、电脑。"
+    Listen
+    Case "手机" -> goto buyPhone
+    Case "耳机" -> goto buyEarphone
+    Case "电脑" -> goto buyLaptop
+    Default -> goto buyFallback
+
+Step buyFallback
+    Speak "暂时没听清，您可以说例如：手机、耳机、电脑。"
+    goto buyStart
+
+
+# ---- 购买手机
+Step buyPhone
+    Speak "手机库存查询中，请稍候……"
+    Lock "phone_stock"
+    DBQuery "SELECT stock FROM goods WHERE name='phone'" -> var stock
+    If stock <= 0 -> goto outOfStockPhone
+    Speak "手机有库存。请问要买几台？"
+    Listen assign quantity
+    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='phone'"
+    Unlock "phone_stock"
+    Speak "下单成功！您购买了{quantity}台手机。"
+    goto welcome
+
+Step outOfStockPhone
+    Unlock "phone_stock"
+    Speak "抱歉，手机目前缺货。要看看其他商品吗？"
+    goto buyStart
+
+
+# ---- 购买耳机
+Step buyEarphone
+    Speak "耳机库存查询中……"
+    Lock "earphone_stock"
+    DBQuery "SELECT stock FROM goods WHERE name='earphone'" -> var stock
+    If stock <= 0 -> goto outOfStockEarphone
+    Speak "耳机有货。要购买几副？"
+    Listen assign quantity
+    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='earphone'"
+    Unlock "earphone_stock"
+    Speak "下单成功！已购买{quantity}副耳机。"
+    goto welcome
+
+Step outOfStockEarphone
+    Unlock "earphone_stock"
+    Speak "耳机目前缺货。要看其他商品吗？"
+    goto buyStart
+
+
+# ---- 购买电脑
+Step buyLaptop
+    Speak "电脑库存查询中……"
+    Lock "laptop_stock"
+    DBQuery "SELECT stock FROM goods WHERE name='laptop'" -> var stock
+    If stock <= 0 -> goto outOfStockLaptop
+    Speak "电脑有货。您要购买几台？"
+    Listen assign quantity
+    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='laptop'"
+    Unlock "laptop_stock"
+    Speak "下单成功！购买了{quantity}台电脑。"
+    goto welcome
+
+Step outOfStockLaptop
+    Unlock "laptop_stock"
+    Speak "电脑已售罄。要看看其他商品吗？"
+    goto buyStart
+
+Step complaintStart
+    Speak "非常抱歉给您带来困扰，请告诉我您的投诉内容。"
+    Listen assign complaintText
+    AIReply
+    Speak "您的投诉我们已经记录，会在24小时内联系您。"
+    goto welcome
+
+Step refundStart
+    Speak "请提供您的订单号，我来帮您查询是否可退款。"
+    Listen assign orderId
+    DBQuery "SELECT status FROM orders WHERE id={orderId}" -> var st
+    If st == "delivered" -> goto refundDeny
+    If st == "shipped" -> goto refundDeny
+    If st == "ordered" -> goto refundAccept
+    Default -> goto refundFallback
+
+Step refundAccept
+    Speak "订单符合退款规则，我已经为您申请退款。"
+    goto welcome
+
+Step refundDeny
+    Speak "订单已发货或已完成，无法退款。"
+    goto welcome
+
+Step refundFallback
+    Speak "订单号查询失败，请检查订单号是否正确。"
+    goto refundStart
+
+Step humanService
+    Speak "正在为您接入人工客服，请稍候……"
+    Exit
+
+Step fallback
+    Speak "我不太明白您的意思。您可以说购买、投诉、退款或者联系客服。"
+    goto welcome
+
+Step goodbye
+    Speak "感谢使用智慧商城助手，祝您购物愉快！"
+    Exit
