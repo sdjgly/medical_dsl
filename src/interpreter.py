@@ -1,12 +1,12 @@
 import sqlite3
 import re
 from typing import Dict, List, Any, Optional
-from llm_client import DeepSeekClient
+from llm_client import ZhipuAIClient
 
 class DSLInterpreter:
     """DSL解释器"""
     
-    def __init__(self, script_ast: Dict[str, Any], llm_client: DeepSeekClient = None, db_path: str = None):
+    def __init__(self, script_ast: Dict[str, Any], llm_client: ZhipuAIClient = None, db_path: str = None):
         """初始化解释器"""
         self.script = script_ast
         self.llm_client = llm_client
@@ -70,7 +70,7 @@ class DSLInterpreter:
                 self._handle_user_input(step_data, result["user_input"])
                 # return
                 #当有用户输入时，_handle_user_input被调用后立即返回，导致当前步骤的剩余动作没有被执行！
-                
+
     def _execute_action(self, action: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """执行单个动作"""
         try:

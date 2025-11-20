@@ -1,0 +1,166 @@
+{
+  "intent_recognition_real": {
+    "scenario": "真实意图识别测试",
+    "total_cases": 5,
+    "passed_cases": 5,
+    "pass_rate": "100.0%",
+    "detailed_results": [
+      {
+        "test_case": "医疗挂号意图",
+        "user_input": "我想预约挂号看内科",
+        "candidate_intents": [
+          "挂号",
+          "体检",
+          "科普",
+          "退出"
+        ],
+        "expected_intent": "挂号",
+        "actual_intent": "挂号",
+        "response_time": 0.55,
+        "passed": true
+      },
+      {
+        "test_case": "电商购买意图",
+        "user_input": "我要买一部手机",
+        "candidate_intents": [
+          "购买",
+          "投诉",
+          "退款",
+          "客服"
+        ],
+        "expected_intent": "购买",
+        "actual_intent": "购买",
+        "response_time": 0.42,
+        "passed": true
+      },
+      {
+        "test_case": "医疗体检意图",
+        "user_input": "我想做个全面体检",
+        "candidate_intents": [
+          "挂号",
+          "体检",
+          "科普",
+          "退出"
+        ],
+        "expected_intent": "体检",
+        "actual_intent": "体检",
+        "response_time": 0.43,
+        "passed": true
+      },
+      {
+        "test_case": "电商投诉意图",
+        "user_input": "我要投诉商品质量问题",
+        "candidate_intents": [
+          "购买",
+          "投诉",
+          "退款",
+          "客服"
+        ],
+        "expected_intent": "投诉",
+        "actual_intent": "投诉",
+        "response_time": 0.58,
+        "passed": true
+      },
+      {
+        "test_case": "未知意图",
+        "user_input": "今天天气怎么样",
+        "candidate_intents": [
+          "挂号",
+          "体检",
+          "科普",
+          "退出"
+        ],
+        "expected_intent": "unknown",
+        "actual_intent": "unknown",
+        "response_time": 0.42,
+        "passed": true
+      }
+    ]
+  },
+  "generate_reply_real": {
+    "scenario": "真实回复生成测试",
+    "total_cases": 4,
+    "passed_cases": 4,
+    "pass_rate": "100.0%",
+    "detailed_results": [
+      {
+        "test_case": "医疗健康咨询",
+        "user_input": "我最近经常失眠，有什么建议吗？",
+        "context_module": "medical",
+        "expected_keywords": [
+          "睡眠",
+          "建议",
+          "医生",
+          "休息",
+          "习惯"
+        ],
+        "actual_reply": "首先，我理解失眠给您带来的困扰。改善睡眠有很多方法，以下是一些建议，希望能对您有所帮助：\n\n1. **建立规律的作息时间**：尽量每天同一时间上床睡觉和起床，包括周末。\n\n2. **创造良好的睡眠环境**：确保您的卧室安静、黑暗和适宜的温度。使用遮光窗帘，减少噪音干扰。\n\n3. **避免咖啡因和酒精**：尤其是在临近睡觉的时间，避免摄入咖啡、茶、巧克力和酒精等刺激性饮料。\n\n4. **晚餐不宜过饱**：避免油腻、辛辣或重口味的食物，这些可能导致消化不良，影响睡眠。\n\n5. **放松身心**：尝试冥想、深呼吸或轻柔的拉伸运动，帮助身体放松。\n\n6. **限制午睡时间**：如果您白天需要午睡，尽量控制在30分钟以内，避免傍晚时分打盹。\n\n7. **减少屏幕时间**：睡前减少使用手机、电脑和电视等电子设备，因为蓝光可能抑制褪黑激素的产生，影响睡眠。\n\n8. **适量运动**：规律的身体活动有助于提高睡眠质量，但避免在睡前进行剧烈运动。\n\n如果您尝试了这些方法但仍然无法改善睡眠质量，建议咨询专业的医生，可能需要进一步的评估和治疗。记住，良好的睡眠对健康至关重要，希望您能尽快找回优质的睡眠。如果需要预约医生或了解更多信息，请告诉我。",
+        "response_time": 9.12,
+        "contains_keywords": true,
+        "reply_length": 519,
+        "passed": true
+      },
+      {
+        "test_case": "电商售后服务",
+        "user_input": "我买的手机屏幕碎了，能保修吗？",
+        "context_module": "ecommerce",
+        "expected_keywords": [
+          "保修",
+          "屏幕",
+          "联系",
+          "客服",
+          "处理"
+        ],
+        "actual_reply": "很抱歉听到您的手机屏幕出现了问题。关于保修事宜，请问您的手机是在我们智慧商城购买的？如果是的话，可以告诉我具体的购买时间和手机型号吗？这样我可以帮您查询一下保修政策。\n\n通常情况下，如果手机在保修期内，并且屏幕损坏是由于产品质量问题导致的，我们会按照保修条款为您提供相应的维修或更换服务。但如果屏幕损坏是由于意外摔落或不当使用导致的，可能就不在保修范围之内了。\n\n请您提供更多信息，我会尽力帮您解决问题。同时，如果需要的话，我们这里也有配件和维修服务可以为您提供，以便尽快让您的手机恢复正常使用。",
+        "response_time": 4.95,
+        "contains_keywords": true,
+        "reply_length": 248,
+        "passed": true
+      },
+      {
+        "test_case": "医疗症状咨询",
+        "user_input": "我喉咙痛了三天，应该怎么办？",
+        "context_module": "medical",
+        "expected_keywords": [
+          "喉咙",
+          "建议",
+          "医生",
+          "检查",
+          "治疗"
+        ],
+        "actual_reply": "您好，喉咙不舒服可能是由多种原因引起的，比如感冒、咽喉炎、过度使用声带、空气质量不佳等。这里有一些建议可以帮助缓解不适：\n\n1. 多休息：确保充足的睡眠，让身体有时间恢复。\n2. 多饮水：保持水分可以帮助润滑喉咙，减轻疼痛。\n3. 咽喉含漱：可以使用盐水（半茶匙食盐溶解在一杯温水中）进行漱口，每日数次。\n4. 避免刺激性食物：辛辣、过热或过冷的食物可能会刺激喉咙。\n5. 吸入蒸汽：深呼吸热蒸汽可以帮助缓解喉咙痛。\n6. 使用含片或喉糖：市面上有专门缓解喉咙不适的含片或喉糖。\n\n如果您的症状持续不缓解或者伴有以下症状，建议及时就医：\n- 高烧\n- 呼吸困难\n- 咳嗽带血\n- 喉咙痛到影响吞咽\n- 声音嘶哑超过一周\n\n请注意，以上建议仅供参考，如果您的症状严重或持续，建议咨询专业医生进行诊断和治疗。在这里，我们无法提供具体的医疗诊断，但可以提供必要的健康指导。希望您早日康复！",
+        "response_time": 7.9,
+        "contains_keywords": true,
+        "reply_length": 391,
+        "passed": true
+      },
+      {
+        "test_case": "电商订单问题",
+        "user_input": "我的订单已经三天了还没发货",
+        "context_module": "ecommerce",
+        "expected_keywords": [
+          "订单",
+          "发货",
+          "查询",
+          "客服",
+          "处理"
+        ],
+        "actual_reply": "非常抱歉给您带来不便。请您提供一下订单号，我帮您查询一下订单的具体情况。如果有任何问题，我们会尽快为您解决。同时，如果需要，我们可以为您推荐一些类似商品，以满足您的购物需求。您放心，我们会全力以赴保障您的权益。",
+        "response_time": 2.08,
+        "contains_keywords": true,
+        "reply_length": 105,
+        "passed": true
+      }
+    ]
+  },
+  "api_performance": {
+    "scenario": "API性能测试",
+    "total_queries": 5,
+    "successful_queries": 5,
+    "success_rate": "100.0%",
+    "avg_response_time": 0.47,
+    "max_response_time": 0.56,
+    "min_response_time": 0.4,
+    "passed": true
+  }
+}

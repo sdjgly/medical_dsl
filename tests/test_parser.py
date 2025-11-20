@@ -6,7 +6,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src_dir = os.path.join(project_root, 'src')
 sys.path.insert(0, src_dir)
 
-from dsl_parser import parse_script  # 或者您选择的新名称
+from dsl_parser import parse_script
 
 def run_test(test_name, test_script, expected_keys=None):
     print(f"\n{'='*60}")

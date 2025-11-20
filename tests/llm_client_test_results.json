@@ -1,0 +1,162 @@
+{
+  "api_error_handling": {
+    "scenario": "API错误处理",
+    "user_input": "测试输入",
+    "candidate_intents": [
+      "选项1",
+      "选项2"
+    ],
+    "actual_result": "unknown",
+    "passed": true,
+    "api_calls": [
+      {
+        "url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "method": "POST",
+        "has_headers": true,
+        "has_json": true
+      }
+    ]
+  },
+  "generate_reply_ecommerce": {
+    "scenario": "电商回复生成",
+    "user_input": "手机质量有问题",
+    "context": {
+      "script_module": "ecommerce",
+      "conversation_history_length": 2
+    },
+    "expected_keywords": [
+      "抱歉",
+      "处理",
+      "联系",
+      "解决"
+    ],
+    "actual_reply": "非常抱歉给您带来不便，我们会尽快处理您的问题并联系您。",
+    "contains_keywords": true,
+    "passed": true,
+    "api_calls": [
+      {
+        "url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "method": "POST",
+        "has_headers": true,
+        "has_json": true
+      }
+    ]
+  },
+  "generate_reply_medical": {
+    "scenario": "医疗回复生成",
+    "user_input": "我最近头疼怎么办",
+    "context": {
+      "script_module": "medical",
+      "conversation_history_length": 2
+    },
+    "expected_keywords": [
+      "建议",
+      "医生",
+      "休息",
+      "医院"
+    ],
+    "actual_reply": "建议您多休息，如果症状持续请及时就医咨询专业医生。",
+    "contains_keywords": true,
+    "passed": true,
+    "api_calls": [
+      {
+        "url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "method": "POST",
+        "has_headers": true,
+        "has_json": true
+      }
+    ]
+  },
+  "http_error_handling": {
+    "scenario": "HTTP错误处理",
+    "user_input": "测试输入",
+    "candidate_intents": [
+      "选项1",
+      "选项2"
+    ],
+    "actual_result": "unknown",
+    "passed": true,
+    "api_calls": [
+      {
+        "url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "method": "POST",
+        "has_headers": true,
+        "has_json": true
+      }
+    ]
+  },
+  "intent_recognition_ecommerce": {
+    "scenario": "电商意图识别",
+    "user_input": "我要买手机",
+    "candidate_intents": [
+      "购买",
+      "投诉",
+      "退款",
+      "客服"
+    ],
+    "expected_intent": "购买",
+    "actual_intent": "购买",
+    "passed": true,
+    "api_calls": [
+      {
+        "url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "method": "POST",
+        "has_headers": true,
+        "has_json": true
+      }
+    ]
+  },
+  "intent_recognition_medical": {
+    "scenario": "医疗意图识别",
+    "user_input": "我想预约挂号",
+    "candidate_intents": [
+      "挂号",
+      "体检",
+      "科普",
+      "退出"
+    ],
+    "expected_intent": "挂号",
+    "actual_intent": "挂号",
+    "passed": true,
+    "api_calls": [
+      {
+        "url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "method": "POST",
+        "has_headers": true,
+        "has_json": true
+      }
+    ]
+  },
+  "intent_recognition_unknown": {
+    "scenario": "未知意图识别",
+    "user_input": "今天天气怎么样",
+    "candidate_intents": [
+      "挂号",
+      "体检",
+      "科普",
+      "退出"
+    ],
+    "expected_intent": "unknown",
+    "actual_intent": "unknown",
+    "passed": true,
+    "api_calls": [
+      {
+        "url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "method": "POST",
+        "has_headers": true,
+        "has_json": true
+      }
+    ]
+  },
+  "no_api_key": {
+    "scenario": "无API密钥",
+    "user_input": "测试输入",
+    "candidate_intents": [
+      "选项1",
+      "选项2"
+    ],
+    "actual_result": "AI功能未启用：请设置API_KEY环境变量",
+    "passed": true,
+    "api_calls": []
+  }
+}
