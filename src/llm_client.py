@@ -2,6 +2,12 @@ import requests
 import json
 import os
 from typing import List, Dict, Any
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+api_key = os.getenv("DEEPSEEK_API_KEY")
 
 class DeepSeekClient:
     
