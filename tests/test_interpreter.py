@@ -3,20 +3,46 @@ import os
 import json
 import io
 import contextlib
+import subprocess
 
-# 添加当前目录到Python路径
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-src_dir = os.path.join(project_root, 'src')
+# 添加项目根目录到Python路径
+current_dir = os.path.dirname(os.path.abspath(__file__))  # tests目录
+project_root = os.path.dirname(current_dir)  # medical_dsl目录
+src_dir = os.path.join(project_root, "src")
+database_dir = os.path.join(project_root, "database")
+
+# 添加src目录到Python路径，以便导入interpreter
 sys.path.insert(0, src_dir)
 
 from test_stubs import MockDSLParser, MockLLMClient
 
-# 导入interpreter - 注意这里需要根据实际文件名调整
+# 导入interpreter
 try:
     from interpreter import DSLInterpreter
-except ImportError:
-    print("无法导入DSLInterpreter")
+except ImportError as e:
+    print(f"无法导入DSLInterpreter: {e}")
     sys.exit(1)
+
+def init_database():
+    """初始化数据库"""
+    try:
+        init_db_path = os.path.join(database_dir, "init_db.py")
+        if os.path.exists(init_db_path):
+            print(f"运行数据库初始化脚本: {init_db_path}")
+            result = subprocess.run([sys.executable, init_db_path], 
+                                  capture_output=True, text=True, cwd=database_dir)
+            if result.returncode == 0:
+                print("数据库初始化成功")
+                return True
+            else:
+                print(f"数据库初始化失败: {result.stderr}")
+                return False
+        else:
+            print(f"找不到init_db.py文件: {init_db_path}")
+            return False
+    except Exception as e:
+        print(f"数据库初始化异常: {e}")
+        return False
 
 class TestInterpreter:
     """测试解释器类"""
@@ -53,7 +79,6 @@ class TestInterpreter:
         try:
             output = self.capture_output(interpreter.run)
         except StopIteration:
-            # 当输入耗尽时可能会抛出StopIteration
             output = "测试完成"
         
         # 分析结果
@@ -70,7 +95,7 @@ class TestInterpreter:
         # 验证结果
         result["passed"] = (
             not interpreter.is_running and 
-            len(interpreter.conversation_history) >= 3  # 至少有对话记录
+            len(interpreter.conversation_history) >= 3
         )
         
         return result
@@ -116,8 +141,19 @@ class TestInterpreter:
         """测试电商流程"""
         print("\n测试电商流程")
         
+        # 初始化数据库
+        if not init_database():
+            print("数据库初始化失败，跳过电商流程测试")
+            return {
+                "test_name": "电商流程测试",
+                "passed": False,
+                "error": "数据库初始化失败"
+            }
+        
         script_ast = self.parser.create_ecommerce_script()
-        interpreter = DSLInterpreter(script_ast, self.llm_client)
+        # 使用真实数据库
+        db_path = os.path.join(database_dir, "ecommerce.db")
+        interpreter = DSLInterpreter(script_ast, self.llm_client, db_path)
         
         # 模拟用户输入序列
         user_inputs = ["购买", "手机", "2", "退出"]
@@ -141,12 +177,23 @@ class TestInterpreter:
             "variables": interpreter.variables
         }
         
-        # 验证结果
+        # 验证结果 - 现在应该显示有库存
         result["passed"] = (
-            len(interpreter.conversation_history) >= 3 and
+            "手机有库存" in output and
+            "下单成功" in output and
             "quantity" in interpreter.variables and
             interpreter.variables["quantity"] == "2"
         )
+        
+        if not result["passed"]:
+            print(f"电商流程测试失败详情:")
+            print(f"   输出包含'手机有库存': {'手机有库存' in output}")
+            print(f"   输出包含'下单成功': {'下单成功' in output}")
+            print(f"   变量quantity存在: {'quantity' in interpreter.variables}")
+            if 'quantity' in interpreter.variables:
+                print(f"   quantity值: {interpreter.variables['quantity']}")
+            if 'stock' in interpreter.variables:
+                print(f"   stock值: {interpreter.variables['stock']}")
         
         return result
     
@@ -294,9 +341,10 @@ class TestInterpreter:
             cleaned_results[test_name] = cleaned_result
         
         try:
-            with open(filename, 'w', encoding='utf-8') as f:
+            output_path = os.path.join(current_dir, filename)
+            with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(cleaned_results, f, ensure_ascii=False, indent=2)
-            print(f"测试结果已保存到: {filename}")
+            print(f"测试结果已保存到: {output_path}")
         except Exception as e:
             print(f"保存测试结果失败: {e}")
 

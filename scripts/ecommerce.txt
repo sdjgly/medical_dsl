@@ -24,12 +24,13 @@ Step buyFallback
     Speak "暂时没听清，您可以说例如：手机、耳机、电脑。"
     goto buyStart
 
-
-# ---- 购买手机
+# 购买手机 
 Step buyPhone
     Speak "手机库存查询中，请稍候……"
     Lock "phone_stock"
-    DBQuery "SELECT stock FROM goods WHERE name='phone'" -> var stock
+    DBQuery "SELECT stock FROM goods WHERE name='phone'" -> goto checkPhoneStock stock
+
+Step checkPhoneStock
     If stock <= 0 -> goto outOfStockPhone
     Speak "手机有库存。请问要买几台？"
     Listen assign quantity
@@ -43,44 +44,47 @@ Step outOfStockPhone
     Speak "抱歉，手机目前缺货。要看看其他商品吗？"
     goto buyStart
 
-
-# ---- 购买耳机
+# 购买耳机
 Step buyEarphone
-    Speak "耳机库存查询中……"
+    Speak "耳机库存查询中，请稍候……"
     Lock "earphone_stock"
-    DBQuery "SELECT stock FROM goods WHERE name='earphone'" -> var stock
+    DBQuery "SELECT stock FROM goods WHERE name='earphone'" -> goto checkEarphoneStock stock
+
+Step checkEarphoneStock
     If stock <= 0 -> goto outOfStockEarphone
-    Speak "耳机有货。要购买几副？"
+    Speak "耳机有库存。请问要买几副？"
     Listen assign quantity
     DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='earphone'"
     Unlock "earphone_stock"
-    Speak "下单成功！已购买{quantity}副耳机。"
+    Speak "下单成功！您购买了{quantity}副耳机。"
     goto welcome
 
 Step outOfStockEarphone
     Unlock "earphone_stock"
-    Speak "耳机目前缺货。要看其他商品吗？"
+    Speak "抱歉，耳机目前缺货。要看看其他商品吗？"
     goto buyStart
 
-
-# ---- 购买电脑
+# 购买电脑
 Step buyLaptop
-    Speak "电脑库存查询中……"
+    Speak "电脑库存查询中，请稍候……"
     Lock "laptop_stock"
-    DBQuery "SELECT stock FROM goods WHERE name='laptop'" -> var stock
+    DBQuery "SELECT stock FROM goods WHERE name='laptop'" -> goto checkLaptopStock stock
+
+Step checkLaptopStock
     If stock <= 0 -> goto outOfStockLaptop
-    Speak "电脑有货。您要购买几台？"
+    Speak "电脑有库存。请问要买几台？"
     Listen assign quantity
     DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='laptop'"
     Unlock "laptop_stock"
-    Speak "下单成功！购买了{quantity}台电脑。"
+    Speak "下单成功！您购买了{quantity}台电脑。"
     goto welcome
 
 Step outOfStockLaptop
     Unlock "laptop_stock"
-    Speak "电脑已售罄。要看看其他商品吗？"
+    Speak "抱歉，电脑目前缺货。要看看其他商品吗？"
     goto buyStart
 
+# 投诉流程
 Step complaintStart
     Speak "非常抱歉给您带来困扰，请告诉我您的投诉内容。"
     Listen assign complaintText
@@ -88,10 +92,13 @@ Step complaintStart
     Speak "您的投诉我们已经记录，会在24小时内联系您。"
     goto welcome
 
+# 退款流程
 Step refundStart
     Speak "请提供您的订单号，我来帮您查询是否可退款。"
     Listen assign orderId
-    DBQuery "SELECT status FROM orders WHERE id={orderId}" -> var st
+    DBQuery "SELECT status FROM orders WHERE id={orderId}" -> goto checkRefundStatus st
+
+Step checkRefundStatus
     If st == "delivered" -> goto refundDeny
     If st == "shipped" -> goto refundDeny
     If st == "ordered" -> goto refundAccept
@@ -109,6 +116,7 @@ Step refundFallback
     Speak "订单号查询失败，请检查订单号是否正确。"
     goto refundStart
 
+# 其他功能
 Step humanService
     Speak "正在为您接入人工客服，请稍候……"
     Exit

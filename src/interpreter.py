@@ -68,8 +68,9 @@ class DSLInterpreter:
             # 如果有用户输入需要处理
             if result and "user_input" in result:
                 self._handle_user_input(step_data, result["user_input"])
-                return
-    
+                # return
+                #当有用户输入时，_handle_user_input被调用后立即返回，导致当前步骤的剩余动作没有被执行！
+                
     def _execute_action(self, action: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """执行单个动作"""
         try:

@@ -96,7 +96,7 @@ class MockDSLParser:
     
     @staticmethod
     def create_ecommerce_script():
-        """创建电商场景的测试脚本AST"""
+        """创建电商场景的测试脚本AST - 修复版本"""
         return {
             "module": "ecommerce",
             "steps": {
@@ -129,7 +129,11 @@ class MockDSLParser:
                     "actions": [
                         {"type": "Speak", "message": "手机库存查询中，请稍候……"},
                         {"type": "Lock", "resource": "phone_stock"},
-                        {"type": "DBQuery", "query": "SELECT stock FROM goods WHERE name='phone'", "variable": "stock", "target": "outOfStockPhone"},
+                        {"type": "DBQuery", "query": "SELECT stock FROM goods WHERE name='phone'", "variable": "stock", "target": "checkStock"}
+                    ]
+                },
+                "checkStock": {
+                    "actions": [
                         {"type": "If", "condition": {"left": "stock", "operator": "<=", "right": 0}, "target": "outOfStockPhone"},
                         {"type": "Speak", "message": "手机有库存。请问要买几台？"},
                         {"type": "ListenAssign", "variable": "quantity"},
@@ -143,6 +147,31 @@ class MockDSLParser:
                     "actions": [
                         {"type": "Unlock", "resource": "phone_stock"},
                         {"type": "Speak", "message": "抱歉，手机目前缺货。要看看其他商品吗？"},
+                        {"type": "Goto", "target": "buyStart"}
+                    ]
+                },
+                "buyEarphone": {
+                    "actions": [
+                        {"type": "Speak", "message": "耳机库存查询中，请稍候……"},
+                        {"type": "Lock", "resource": "earphone_stock"},
+                        {"type": "DBQuery", "query": "SELECT stock FROM goods WHERE name='earphone'", "variable": "stock", "target": "checkEarphoneStock"}
+                    ]
+                },
+                "checkEarphoneStock": {
+                    "actions": [
+                        {"type": "If", "condition": {"left": "stock", "operator": "<=", "right": 0}, "target": "outOfStockEarphone"},
+                        {"type": "Speak", "message": "耳机有库存。请问要买几副？"},
+                        {"type": "ListenAssign", "variable": "quantity"},
+                        {"type": "DBExec", "query": "UPDATE goods SET stock = stock - {quantity} WHERE name='earphone'"},
+                        {"type": "Unlock", "resource": "earphone_stock"},
+                        {"type": "Speak", "message": "下单成功！您购买了{quantity}副耳机。"},
+                        {"type": "Goto", "target": "welcome"}
+                    ]
+                },
+                "outOfStockEarphone": {
+                    "actions": [
+                        {"type": "Unlock", "resource": "earphone_stock"},
+                        {"type": "Speak", "message": "抱歉，耳机目前缺货。要看看其他商品吗？"},
                         {"type": "Goto", "target": "buyStart"}
                     ]
                 },

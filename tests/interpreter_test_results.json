@@ -55,7 +55,7 @@
   },
   "test_ecommerce_flow": {
     "test_name": "电商流程测试",
-    "passed": false,
+    "passed": true,
     "user_inputs": [
       "购买",
       "手机",
@@ -64,9 +64,12 @@
     ],
     "final_step": "goodbye",
     "is_running": false,
-    "variables": {},
+    "variables": {
+      "stock": 10,
+      "quantity": "2"
+    },
     "llm_call_count": 4,
-    "conversation_turns": 12,
+    "conversation_turns": 11,
     "error": null,
     "conversation_summary": [
       "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
@@ -74,11 +77,10 @@
       "assistant: 好的，请告诉我想买什么商品？例如：手机、耳机、电脑。",
       "user: 手机",
       "assistant: 手机库存查询中，请稍候……",
-      "assistant: 抱歉，手机目前缺货。要看看其他商品吗？",
-      "assistant: 好的，请告诉我想买什么商品？例如：手机、耳机、电脑。",
+      "assistant: 手机有库存。请问要买几台？",
       "user: 2",
-      "assistant: 暂时没听清，您可以说例如：手机、耳机、电脑。",
-      "assistant: 好的，请告诉我想买什么商品？例如：手机、耳机、电脑。",
+      "assistant: 下单成功！您购买了2台手机。",
+      "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
       "user: 退出",
       "assistant: 感谢使用智慧商城助手，祝您购物愉快！"
     ]
@@ -122,13 +124,15 @@
       "complaintText": "商品质量有问题"
     },
     "llm_call_count": 4,
-    "conversation_turns": 7,
+    "conversation_turns": 9,
     "error": null,
     "conversation_summary": [
       "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
       "user: 投诉",
       "assistant: 非常抱歉给您带来困扰，请告诉我您的投诉内容。",
       "user: 商品质量有问题",
+      "assistant: [ecommerce场景] 这是对 '商品质量有问题' 的模拟AI回复",
+      "assistant: 您的投诉我们已经记录，会在24小时内联系您。",
       "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
       "user: 退出",
       "assistant: 感谢使用智慧商城助手，祝您购物愉快！"
