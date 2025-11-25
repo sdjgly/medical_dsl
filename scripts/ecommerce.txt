@@ -24,37 +24,36 @@ Step buyFallback
     Speak "暂时没听清，您可以说例如：手机、耳机、电脑。"
     goto buyStart
 
-# 购买手机 
 Step buyPhone
     Speak "手机库存查询中，请稍候……"
-    Lock "phone_stock"
+    Lock "phone_stock"  # 应用层锁，防止多个用户同时进入购买流程
     DBQuery "SELECT stock FROM goods WHERE name='phone'" -> goto checkPhoneStock stock
 
 Step checkPhoneStock
     If stock <= 0 -> goto outOfStockPhone
     Speak "手机有库存，当前剩余{stock}台。请问要买几台？"
     Listen assign quantity
-    # 新增：检查购买数量是否超过库存
-    If quantity > stock -> goto insufficientStockPhone
-    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='phone'"
+    # 使用原子更新，确保库存正确
+    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='phone' AND stock >= {quantity}"
+    DBQuery "SELECT changes() as updated" -> goto confirmPhonePurchase updated
+
+Step confirmPhonePurchase
+    If updated == 0 -> goto phonePurchaseFailed
     Unlock "phone_stock"
     Speak "下单成功！您购买了{quantity}台手机。"
     goto welcome
 
-Step insufficientStockPhone
+Step phonePurchaseFailed
     Unlock "phone_stock"
-    Speak "抱歉，库存不足。您想购买{quantity}台，但库存只有{stock}台。要减少购买数量吗？"
-    Listen
-    Case "是" -> goto buyPhone
-    Case "减少" -> goto buyPhone
-    Default -> goto buyStart
+    Speak "抱歉，购买失败。可能是库存不足或其他用户正在购买，请重新尝试。"
+    goto buyStart
 
 Step outOfStockPhone
     Unlock "phone_stock"
     Speak "抱歉，手机目前缺货。要看看其他商品吗？"
     goto buyStart
 
-# 购买耳机
+# 购买耳机 - 类似的改进
 Step buyEarphone
     Speak "耳机库存查询中，请稍候……"
     Lock "earphone_stock"
@@ -64,27 +63,26 @@ Step checkEarphoneStock
     If stock <= 0 -> goto outOfStockEarphone
     Speak "耳机有库存，当前剩余{stock}副。请问要买几副？"
     Listen assign quantity
-    # 新增：检查购买数量是否超过库存
-    If quantity > stock -> goto insufficientStockEarphone
-    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='earphone'"
+    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='earphone' AND stock >= {quantity}"
+    DBQuery "SELECT changes() as updated" -> goto confirmEarphonePurchase updated
+
+Step confirmEarphonePurchase
+    If updated == 0 -> goto earphonePurchaseFailed
     Unlock "earphone_stock"
     Speak "下单成功！您购买了{quantity}副耳机。"
     goto welcome
 
-Step insufficientStockEarphone
+Step earphonePurchaseFailed
     Unlock "earphone_stock"
-    Speak "抱歉，库存不足。您想购买{quantity}副，但库存只有{stock}副。要减少购买数量吗？"
-    Listen
-    Case "是" -> goto buyEarphone
-    Case "减少" -> goto buyEarphone
-    Default -> goto buyStart
+    Speak "抱歉，购买失败。可能是库存不足或其他用户正在购买，请重新尝试。"
+    goto buyStart
 
 Step outOfStockEarphone
     Unlock "earphone_stock"
     Speak "抱歉，耳机目前缺货。要看看其他商品吗？"
     goto buyStart
 
-# 购买电脑
+# 购买电脑 - 类似的改进
 Step buyLaptop
     Speak "电脑库存查询中，请稍候……"
     Lock "laptop_stock"
@@ -94,27 +92,26 @@ Step checkLaptopStock
     If stock <= 0 -> goto outOfStockLaptop
     Speak "电脑有库存，当前剩余{stock}台。请问要买几台？"
     Listen assign quantity
-    # 新增：检查购买数量是否超过库存
-    If quantity > stock -> goto insufficientStockLaptop
-    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='laptop'"
+    DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='laptop' AND stock >= {quantity}"
+    DBQuery "SELECT changes() as updated" -> goto confirmLaptopPurchase updated
+
+Step confirmLaptopPurchase
+    If updated == 0 -> goto laptopPurchaseFailed
     Unlock "laptop_stock"
     Speak "下单成功！您购买了{quantity}台电脑。"
     goto welcome
 
-Step insufficientStockLaptop
+Step laptopPurchaseFailed
     Unlock "laptop_stock"
-    Speak "抱歉，库存不足。您想购买{quantity}台，但库存只有{stock}台。要减少购买数量吗？"
-    Listen
-    Case "是" -> goto buyLaptop
-    Case "减少" -> goto buyLaptop
-    Default -> goto buyStart
+    Speak "抱歉，购买失败。可能是库存不足或其他用户正在购买，请重新尝试。"
+    goto buyStart
 
 Step outOfStockLaptop
     Unlock "laptop_stock"
     Speak "抱歉，电脑目前缺货。要看看其他商品吗？"
     goto buyStart
 
-# 投诉流程
+# 其他步骤保持不变...
 Step complaintStart
     Speak "非常抱歉给您带来困扰，请告诉我您的投诉内容。"
     Listen assign complaintText
@@ -122,7 +119,6 @@ Step complaintStart
     Speak "您的投诉我们已经记录，会在24小时内联系您。"
     goto welcome
 
-# 退款流程
 Step refundStart
     Speak "请提供您的订单号，我来帮您查询是否可退款。"
     Listen assign orderId
@@ -146,7 +142,6 @@ Step refundFallback
     Speak "订单号查询失败，请检查订单号是否正确。"
     goto refundStart
 
-# 其他功能
 Step humanService
     Speak "正在为您接入人工客服，请稍候……"
     Exit
