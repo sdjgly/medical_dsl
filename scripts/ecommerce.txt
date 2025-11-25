@@ -32,12 +32,22 @@ Step buyPhone
 
 Step checkPhoneStock
     If stock <= 0 -> goto outOfStockPhone
-    Speak "手机有库存。请问要买几台？"
+    Speak "手机有库存，当前剩余{stock}台。请问要买几台？"
     Listen assign quantity
+    # 新增：检查购买数量是否超过库存
+    If quantity > stock -> goto insufficientStockPhone
     DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='phone'"
     Unlock "phone_stock"
     Speak "下单成功！您购买了{quantity}台手机。"
     goto welcome
+
+Step insufficientStockPhone
+    Unlock "phone_stock"
+    Speak "抱歉，库存不足。您想购买{quantity}台，但库存只有{stock}台。要减少购买数量吗？"
+    Listen
+    Case "是" -> goto buyPhone
+    Case "减少" -> goto buyPhone
+    Default -> goto buyStart
 
 Step outOfStockPhone
     Unlock "phone_stock"
@@ -52,12 +62,22 @@ Step buyEarphone
 
 Step checkEarphoneStock
     If stock <= 0 -> goto outOfStockEarphone
-    Speak "耳机有库存。请问要买几副？"
+    Speak "耳机有库存，当前剩余{stock}副。请问要买几副？"
     Listen assign quantity
+    # 新增：检查购买数量是否超过库存
+    If quantity > stock -> goto insufficientStockEarphone
     DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='earphone'"
     Unlock "earphone_stock"
     Speak "下单成功！您购买了{quantity}副耳机。"
     goto welcome
+
+Step insufficientStockEarphone
+    Unlock "earphone_stock"
+    Speak "抱歉，库存不足。您想购买{quantity}副，但库存只有{stock}副。要减少购买数量吗？"
+    Listen
+    Case "是" -> goto buyEarphone
+    Case "减少" -> goto buyEarphone
+    Default -> goto buyStart
 
 Step outOfStockEarphone
     Unlock "earphone_stock"
@@ -72,12 +92,22 @@ Step buyLaptop
 
 Step checkLaptopStock
     If stock <= 0 -> goto outOfStockLaptop
-    Speak "电脑有库存。请问要买几台？"
+    Speak "电脑有库存，当前剩余{stock}台。请问要买几台？"
     Listen assign quantity
+    # 新增：检查购买数量是否超过库存
+    If quantity > stock -> goto insufficientStockLaptop
     DBExec "UPDATE goods SET stock = stock - {quantity} WHERE name='laptop'"
     Unlock "laptop_stock"
     Speak "下单成功！您购买了{quantity}台电脑。"
     goto welcome
+
+Step insufficientStockLaptop
+    Unlock "laptop_stock"
+    Speak "抱歉，库存不足。您想购买{quantity}台，但库存只有{stock}台。要减少购买数量吗？"
+    Listen
+    Case "是" -> goto buyLaptop
+    Case "减少" -> goto buyLaptop
+    Default -> goto buyStart
 
 Step outOfStockLaptop
     Unlock "laptop_stock"

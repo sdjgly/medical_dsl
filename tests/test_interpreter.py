@@ -5,6 +5,9 @@ import io
 import contextlib
 import subprocess
 
+TEST_RESULTS_DIR = r"D:\medical_dsl\test_results"
+os.makedirs(TEST_RESULTS_DIR, exist_ok=True)
+
 # 添加项目根目录到Python路径
 current_dir = os.path.dirname(os.path.abspath(__file__))  # tests目录
 project_root = os.path.dirname(current_dir)  # medical_dsl目录
@@ -341,7 +344,7 @@ class TestInterpreter:
             cleaned_results[test_name] = cleaned_result
         
         try:
-            output_path = os.path.join(current_dir, filename)
+            output_path = os.path.join(TEST_RESULTS_DIR, filename)
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(cleaned_results, f, ensure_ascii=False, indent=2)
             print(f"测试结果已保存到: {output_path}")

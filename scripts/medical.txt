@@ -26,6 +26,8 @@ Step regDeptFallback
 
 # AI辅助科室判断
 Step regAI
+    Speak "请描述您的症状或需要咨询的问题："
+    Listen
     AIReply
     goto welcome
 
@@ -83,6 +85,7 @@ Step scienceIntro
     Case "饮食" -> goto sciDiet
     Case "睡眠" -> goto sciSleep
     Case "运动" -> goto sciExercise
+    Case "自由提问" -> goto sciAI
     Case "ai" -> goto sciAI
     Default -> goto scienceFallback
 
@@ -103,6 +106,8 @@ Step sciExercise
     goto welcome
 
 Step sciAI
+    Speak "请告诉我您想了解的健康问题："
+    Listen
     AIReply
     goto welcome
 

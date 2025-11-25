@@ -1,0 +1,166 @@
+{
+  "intent_recognition_real": {
+    "scenario": "真实意图识别测试",
+    "total_cases": 5,
+    "passed_cases": 5,
+    "pass_rate": "100.0%",
+    "detailed_results": [
+      {
+        "test_case": "医疗挂号意图",
+        "user_input": "我想预约挂号看内科",
+        "candidate_intents": [
+          "挂号",
+          "体检",
+          "科普",
+          "退出"
+        ],
+        "expected_intent": "挂号",
+        "actual_intent": "挂号",
+        "response_time": 0.66,
+        "passed": true
+      },
+      {
+        "test_case": "电商购买意图",
+        "user_input": "我要买一部手机",
+        "candidate_intents": [
+          "购买",
+          "投诉",
+          "退款",
+          "客服"
+        ],
+        "expected_intent": "购买",
+        "actual_intent": "购买",
+        "response_time": 0.44,
+        "passed": true
+      },
+      {
+        "test_case": "医疗体检意图",
+        "user_input": "我想做个全面体检",
+        "candidate_intents": [
+          "挂号",
+          "体检",
+          "科普",
+          "退出"
+        ],
+        "expected_intent": "体检",
+        "actual_intent": "体检",
+        "response_time": 0.52,
+        "passed": true
+      },
+      {
+        "test_case": "电商投诉意图",
+        "user_input": "我要投诉商品质量问题",
+        "candidate_intents": [
+          "购买",
+          "投诉",
+          "退款",
+          "客服"
+        ],
+        "expected_intent": "投诉",
+        "actual_intent": "投诉",
+        "response_time": 0.52,
+        "passed": true
+      },
+      {
+        "test_case": "未知意图",
+        "user_input": "今天天气怎么样",
+        "candidate_intents": [
+          "挂号",
+          "体检",
+          "科普",
+          "退出"
+        ],
+        "expected_intent": "unknown",
+        "actual_intent": "unknown",
+        "response_time": 0.62,
+        "passed": true
+      }
+    ]
+  },
+  "generate_reply_real": {
+    "scenario": "真实回复生成测试",
+    "total_cases": 4,
+    "passed_cases": 4,
+    "pass_rate": "100.0%",
+    "detailed_results": [
+      {
+        "test_case": "医疗健康咨询",
+        "user_input": "我最近经常失眠，有什么建议吗？",
+        "context_module": "medical",
+        "expected_keywords": [
+          "睡眠",
+          "建议",
+          "医生",
+          "休息",
+          "习惯"
+        ],
+        "actual_reply": "首先，我理解失眠可能会对您的生活质量造成影响，希望我能提供一些有助于改善您睡眠的建议。\n\n1. **建立规律的作息时间**：尽量每天都在同一时间上床睡觉和起床，哪怕是周末或假期也不例外。\n\n2. **创造良好的睡眠环境**：确保您的卧室安静、黑暗和凉爽。使用遮光窗帘，减少噪音干扰，并调整室温到适宜的水平。\n\n3. **避免刺激性饮料和食物**：晚上避免摄入咖啡因和酒精，这些物质可能会干扰您的睡眠。\n\n4. **放松身心**：睡前可以尝试一些放松技巧，如深呼吸、冥想或瑜伽。\n\n5. **避免长时间午睡**：如果您白天需要午睡，尽量控制在30分钟以内，避免在傍晚时分打盹。\n\n6. **适量运动**：定期进行适量的身体活动可以帮助改善睡眠质量，但请注意避免在睡前进行剧烈运动。\n\n7. **限制床上活动**：将床铺仅用于睡觉和性活动，避免在床上工作、吃东西或看电视。\n\n8. **尝试睡前例行程序**：比如洗澡、阅读或听轻柔的音乐，这些活动可以帮助您的身体和大脑准备进入睡眠状态。\n\n如果您尝试了这些方法但仍然睡眠困难，建议咨询专业的医生或睡眠专家，以便得到更专业的指导和帮助。记住，良好的睡眠对健康至关重要，及时寻求专业帮助是非常明智的选择。",
+        "response_time": 9.14,
+        "contains_keywords": true,
+        "reply_length": 523,
+        "passed": true
+      },
+      {
+        "test_case": "电商售后服务",
+        "user_input": "我买的手机屏幕碎了，能保修吗？",
+        "context_module": "ecommerce",
+        "expected_keywords": [
+          "保修",
+          "屏幕",
+          "联系",
+          "客服",
+          "处理"
+        ],
+        "actual_reply": "很抱歉听到您的手机屏幕出现了问题。关于保修服务，这通常取决于手机的保修政策和损坏情况。如果您购买的手机享有保修服务，并且屏幕损坏是在保修范围和保修期内，那么通常是可以申请保修或更换的。\n\n为了更好地帮助您，我需要了解以下几个信息：\n\n1. 您购买的手机品牌和型号是什么？\n2. 购买手机的时间以及是否还在保修期内？\n3. 手机屏幕损坏的具体情况是怎样的？\n4. 您是否有购买时的发票和保修卡？\n\n请您提供这些信息，我将根据具体情况为您解答如何申请保修或提供其他可能的解决方案。同时，如果屏幕损坏不在保修范围内，我们也提供相关商品的推荐，比如手机保护套或者屏幕保护膜，以避免类似情况再次发生。",
+        "response_time": 5.35,
+        "contains_keywords": true,
+        "reply_length": 295,
+        "passed": true
+      },
+      {
+        "test_case": "医疗症状咨询",
+        "user_input": "我喉咙痛了三天，应该怎么办？",
+        "context_module": "medical",
+        "expected_keywords": [
+          "喉咙",
+          "建议",
+          "医生",
+          "检查",
+          "治疗"
+        ],
+        "actual_reply": "您好，喉咙不舒服可能是由多种原因引起的，比如感冒、咽喉炎、扁桃体炎或者是过度使用声带等。首先，您可以尝试以下几种方法来缓解不适：\n\n1. 保持充足的休息，避免过度用声。\n2. 多饮水，保持喉咙的湿润。\n3. 可以尝试用温盐水漱口，帮助消炎止痛。\n4. 吸入蒸汽或使用加湿器，以缓解喉咙干燥。\n5. 避免刺激性食物和饮料，如辛辣、酒精和咖啡等。\n6. 可以适量服用含片或喉糖，这些通常含有天然成分，有助于缓解喉咙痛。\n\n如果您的症状持续不缓解，或者有如下情况，建议及时就医：\n- 喉咙痛伴随发烧、吞咽困难或呼吸困难。\n- 喉咙痛持续时间较长，且没有明显改善。\n- 喉咙痛伴随有皮疹、关节痛或其他不寻常的症状。\n\n请记住，虽然我可以提供一些基本的健康建议，但专业的医疗诊断和治疗还需要您咨询医生。如果您的症状严重或持续，建议尽快预约专业医生进行面诊。希望您早日康复！",
+        "response_time": 7.82,
+        "contains_keywords": true,
+        "reply_length": 381,
+        "passed": true
+      },
+      {
+        "test_case": "电商订单问题",
+        "user_input": "我的订单已经三天了还没发货",
+        "context_module": "ecommerce",
+        "expected_keywords": [
+          "订单",
+          "发货",
+          "查询",
+          "客服",
+          "处理"
+        ],
+        "actual_reply": "非常抱歉给您带来不便。请您提供一下订单号，我帮您查一下具体的发货情况。如果确实存在发货延迟的情况，我们会尽快为您处理，并为您提供相应的解决方案。如果是特殊情况导致的延误，我们也会及时通知您。请您放心，我们会尽全力保障您的购物体验。",
+        "response_time": 2.35,
+        "contains_keywords": true,
+        "reply_length": 115,
+        "passed": true
+      }
+    ]
+  },
+  "api_performance": {
+    "scenario": "API性能测试",
+    "total_queries": 5,
+    "successful_queries": 5,
+    "success_rate": "100.0%",
+    "avg_response_time": 0.5,
+    "max_response_time": 0.63,
+    "min_response_time": 0.4,
+    "passed": true
+  }
+}
