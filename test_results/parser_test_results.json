@@ -1,0 +1,528 @@
+{
+  "basic": {
+    "module": "基础测试",
+    "steps": {
+      "welcome": {
+        "name": "welcome",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "欢迎使用测试系统"
+          },
+          {
+            "type": "Listen"
+          },
+          {
+            "type": "Case",
+            "pattern": "选项1",
+            "target": "step1"
+          },
+          {
+            "type": "Case",
+            "pattern": "选项2",
+            "target": "step2"
+          },
+          {
+            "type": "Default",
+            "target": "fallback"
+          }
+        ]
+      },
+      "step1": {
+        "name": "step1",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "您选择了选项1"
+          },
+          {
+            "type": "Goto",
+            "target": "welcome"
+          }
+        ]
+      },
+      "step2": {
+        "name": "step2",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "您选择了选项2"
+          },
+          {
+            "type": "Goto",
+            "target": "welcome"
+          }
+        ]
+      },
+      "fallback": {
+        "name": "fallback",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "没有听懂您的选择"
+          },
+          {
+            "type": "Goto",
+            "target": "welcome"
+          }
+        ]
+      }
+    }
+  },
+  "advanced": {
+    "module": "高级功能测试",
+    "steps": {
+      "complex": {
+        "name": "complex",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "测试高级功能"
+          },
+          {
+            "type": "ListenAssign",
+            "variable": "user_input"
+          },
+          {
+            "type": "If",
+            "condition": {
+              "left": "user_input",
+              "operator": "==",
+              "right": "10"
+            },
+            "target": "process_number"
+          },
+          {
+            "type": "If",
+            "condition": {
+              "left": "user_input",
+              "operator": "==",
+              "right": "yes"
+            },
+            "target": "confirm"
+          },
+          {
+            "type": "DBQuery",
+            "query": "SELECT count FROM table",
+            "variable": "count_var",
+            "target": "check_result"
+          },
+          {
+            "type": "Lock",
+            "resource": "resource_1"
+          },
+          {
+            "type": "DBExec",
+            "query": "UPDATE table SET count = count + 1"
+          },
+          {
+            "type": "Unlock",
+            "resource": "resource_1"
+          },
+          {
+            "type": "AIReply"
+          },
+          {
+            "type": "Exit"
+          }
+        ]
+      },
+      "process_number": {
+        "name": "process_number",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "处理数字输入"
+          },
+          {
+            "type": "Goto",
+            "target": "complex"
+          }
+        ]
+      },
+      "confirm": {
+        "name": "confirm",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "确认操作"
+          },
+          {
+            "type": "Goto",
+            "target": "complex"
+          }
+        ]
+      },
+      "check_result": {
+        "name": "check_result",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "检查结果"
+          },
+          {
+            "type": "Goto",
+            "target": "complex"
+          }
+        ]
+      }
+    }
+  },
+  "medical": {
+    "module": "medical",
+    "steps": {
+      "welcome": {
+        "name": "welcome",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "您好，这里是智慧医院综合服务中心，请问需要什么帮助？"
+          },
+          {
+            "type": "Listen"
+          },
+          {
+            "type": "Case",
+            "pattern": "挂号",
+            "target": "regDept"
+          },
+          {
+            "type": "Case",
+            "pattern": "预约",
+            "target": "regDept"
+          },
+          {
+            "type": "Case",
+            "pattern": "体检",
+            "target": "checkupType"
+          },
+          {
+            "type": "Case",
+            "pattern": "科普",
+            "target": "scienceIntro"
+          },
+          {
+            "type": "Case",
+            "pattern": "退出",
+            "target": "goodbye"
+          },
+          {
+            "type": "Default",
+            "target": "fallback"
+          }
+        ]
+      },
+      "regDept": {
+        "name": "regDept",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "好的，请问您想挂哪个科室？内科、外科、儿科还是妇科？"
+          },
+          {
+            "type": "Listen"
+          },
+          {
+            "type": "Case",
+            "pattern": "内科",
+            "target": "regDate"
+          },
+          {
+            "type": "Case",
+            "pattern": "外科",
+            "target": "regDate"
+          },
+          {
+            "type": "Case",
+            "pattern": "儿科",
+            "target": "regDate"
+          },
+          {
+            "type": "Case",
+            "pattern": "妇科",
+            "target": "regDate"
+          },
+          {
+            "type": "Case",
+            "pattern": "ai",
+            "target": "regAI"
+          },
+          {
+            "type": "Default",
+            "target": "regDeptFallback"
+          }
+        ]
+      },
+      "regAI": {
+        "name": "regAI",
+        "actions": [
+          {
+            "type": "AIReply"
+          },
+          {
+            "type": "Goto",
+            "target": "welcome"
+          }
+        ]
+      }
+    }
+  },
+  "ecommerce": {
+    "module": "ecommerce",
+    "steps": {
+      "buyStart": {
+        "name": "buyStart",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "好的，请告诉我想买什么商品？例如：手机、耳机、电脑。"
+          },
+          {
+            "type": "Listen"
+          },
+          {
+            "type": "Case",
+            "pattern": "手机",
+            "target": "buyPhone"
+          },
+          {
+            "type": "Case",
+            "pattern": "耳机",
+            "target": "buyEarphone"
+          },
+          {
+            "type": "Case",
+            "pattern": "电脑",
+            "target": "buyLaptop"
+          },
+          {
+            "type": "Default",
+            "target": "buyFallback"
+          }
+        ]
+      },
+      "buyPhone": {
+        "name": "buyPhone",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "手机库存查询中，请稍候……"
+          },
+          {
+            "type": "Lock",
+            "resource": "phone_stock"
+          },
+          {
+            "type": "DBQuery",
+            "query": "SELECT stock FROM goods WHERE name='phone'",
+            "variable": "stock",
+            "target": "outOfStockPhone"
+          },
+          {
+            "type": "If",
+            "condition": {
+              "left": "stock",
+              "operator": "<=",
+              "right": 0
+            },
+            "target": "outOfStockPhone"
+          },
+          {
+            "type": "Speak",
+            "message": "手机有库存。请问要买几台？"
+          },
+          {
+            "type": "ListenAssign",
+            "variable": "quantity"
+          },
+          {
+            "type": "DBExec",
+            "query": "UPDATE goods SET stock = stock - {quantity} WHERE name='phone'"
+          },
+          {
+            "type": "Unlock",
+            "resource": "phone_stock"
+          },
+          {
+            "type": "Speak",
+            "message": "下单成功！您购买了{quantity}台手机。"
+          },
+          {
+            "type": "Goto",
+            "target": "welcome"
+          }
+        ]
+      },
+      "outOfStockPhone": {
+        "name": "outOfStockPhone",
+        "actions": [
+          {
+            "type": "Unlock",
+            "resource": "phone_stock"
+          },
+          {
+            "type": "Speak",
+            "message": "抱歉，手机目前缺货。要看看其他商品吗？"
+          },
+          {
+            "type": "Goto",
+            "target": "buyStart"
+          }
+        ]
+      }
+    }
+  },
+  "edge_cases": {
+    "module": "边界测试",
+    "steps": {
+      "minimal_step": {
+        "name": "minimal_step",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "最小步骤"
+          },
+          {
+            "type": "Exit"
+          }
+        ]
+      },
+      "complex_conditions": {
+        "name": "complex_conditions",
+        "actions": [
+          {
+            "type": "ListenAssign",
+            "variable": "input_var"
+          },
+          {
+            "type": "If",
+            "condition": {
+              "left": "input_var",
+              "operator": "==",
+              "right": 10
+            },
+            "target": "number_case"
+          },
+          {
+            "type": "If",
+            "condition": {
+              "left": "input_var",
+              "operator": "==",
+              "right": "hello"
+            },
+            "target": "string_case"
+          },
+          {
+            "type": "If",
+            "condition": {
+              "left": "input_var",
+              "operator": "==",
+              "right": "var2"
+            },
+            "target": "variable_case"
+          },
+          {
+            "type": "If",
+            "condition": {
+              "left": "input_var",
+              "operator": "<=",
+              "right": 100
+            },
+            "target": "less_equal"
+          },
+          {
+            "type": "If",
+            "condition": {
+              "left": "input_var",
+              "operator": ">=",
+              "right": 50
+            },
+            "target": "greater_equal"
+          },
+          {
+            "type": "Default",
+            "target": "fallback"
+          }
+        ]
+      },
+      "number_case": {
+        "name": "number_case",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "数字情况"
+          },
+          {
+            "type": "Goto",
+            "target": "complex_conditions"
+          }
+        ]
+      },
+      "string_case": {
+        "name": "string_case",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "字符串情况"
+          },
+          {
+            "type": "Goto",
+            "target": "complex_conditions"
+          }
+        ]
+      },
+      "variable_case": {
+        "name": "variable_case",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "变量情况"
+          },
+          {
+            "type": "Goto",
+            "target": "complex_conditions"
+          }
+        ]
+      },
+      "less_equal": {
+        "name": "less_equal",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "小于等于情况"
+          },
+          {
+            "type": "Goto",
+            "target": "complex_conditions"
+          }
+        ]
+      },
+      "greater_equal": {
+        "name": "greater_equal",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "大于等于情况"
+          },
+          {
+            "type": "Goto",
+            "target": "complex_conditions"
+          }
+        ]
+      },
+      "fallback": {
+        "name": "fallback",
+        "actions": [
+          {
+            "type": "Speak",
+            "message": "默认情况"
+          },
+          {
+            "type": "Goto",
+            "target": "complex_conditions"
+          }
+        ]
+      }
+    }
+  }
+}

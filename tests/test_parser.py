@@ -239,9 +239,16 @@ Step fallback
 def save_test_results(results, filename):
     """保存测试结果到文件"""
     try:
-        with open(filename, 'w', encoding='utf-8') as f:
+        # 创建test_results目录
+        test_results_dir = os.path.join(project_root, 'test_results')
+        os.makedirs(test_results_dir, exist_ok=True)
+        
+        # 完整的文件路径
+        file_path = os.path.join(test_results_dir, filename)
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
-        print(f"\n测试结果已保存到: {filename}")
+        print(f"\n测试结果已保存到: {file_path}")
     except Exception as e:
         print(f"保存测试结果失败: {e}")
 
@@ -275,7 +282,7 @@ def main():
     else:
         print("部分测试失败，请检查错误信息")
     
-    # 保存详细结果
+    # 保存详细结果到test_results目录
     save_test_results(all_results, "parser_test_results.json")
     
     return successful_tests == total_tests

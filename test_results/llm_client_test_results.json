@@ -155,8 +155,8 @@
       "选项1",
       "选项2"
     ],
-    "actual_result": "unknown",
-    "passed": false,
+    "actual_result": "AI功能未启用：请设置API_KEY环境变量",
+    "passed": true,
     "api_calls": []
   }
 }

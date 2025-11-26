@@ -20,14 +20,14 @@
       },
       {
         "user_id": "User2",
-        "purchase_successful": true,
-        "purchase_failed_message": null,
+        "purchase_successful": false,
+        "purchase_failed_message": "抱歉，购买失败。可能是库存不足或其他用户正在购买，请重新尝试。",
         "final_stock_reported": 10
       },
       {
         "user_id": "User3",
-        "purchase_successful": false,
-        "purchase_failed_message": "抱歉，购买失败。可能是库存不足或其他用户正在购买，请重新尝试。",
+        "purchase_successful": true,
+        "purchase_failed_message": null,
         "final_stock_reported": 10
       }
     ],
@@ -43,16 +43,16 @@
       "User2": [
         "assistant: 手机有库存，当前剩余10台。请问要买几台？",
         "user: 10",
-        "assistant: 下单成功！您购买了10台手机。",
-        "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
+        "assistant: 抱歉，购买失败。可能是库存不足或其他用户正在购买，请重新尝试。",
+        "assistant: 好的，请告诉我想买什么商品？例如：手机、耳机、电脑。",
         "user: 退出",
         "assistant: 感谢使用智慧商城助手，祝您购物愉快！"
       ],
       "User3": [
         "assistant: 手机有库存，当前剩余10台。请问要买几台？",
         "user: 10",
-        "assistant: 抱歉，购买失败。可能是库存不足或其他用户正在购买，请重新尝试。",
-        "assistant: 好的，请告诉我想买什么商品？例如：手机、耳机、电脑。",
+        "assistant: 下单成功！您购买了10台手机。",
+        "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
         "user: 退出",
         "assistant: 感谢使用智慧商城助手，祝您购物愉快！"
       ]
@@ -96,7 +96,7 @@
         "purchase_successful": true,
         "purchase_failed_message": null,
         "purchase_quantity": "3",
-        "final_stock_reported": 10
+        "final_stock_reported": 5
       }
     ],
     "conversation_summary": {
@@ -117,7 +117,7 @@
         "assistant: 感谢使用智慧商城助手，祝您购物愉快！"
       ],
       "User3": [
-        "assistant: 手机有库存，当前剩余10台。请问要买几台？",
+        "assistant: 手机有库存，当前剩余5台。请问要买几台？",
         "user: 3",
         "assistant: 下单成功！您购买了3台手机。",
         "assistant: 您好，欢迎来到智慧商城，请问需要什么帮助？",
